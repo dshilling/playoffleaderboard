@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		93652404279501D500380BE4 /* PlayoffLeaderboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93652403279501D500380BE4 /* PlayoffLeaderboardApp.swift */; };
-		93652406279501D500380BE4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93652405279501D500380BE4 /* ContentView.swift */; };
+		93652406279501D500380BE4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93652405279501D500380BE4 /* LoginView.swift */; };
 		93652408279501D700380BE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93652407279501D700380BE4 /* Assets.xcassets */; };
 		9365240B279501D700380BE4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9365240A279501D700380BE4 /* Preview Assets.xcassets */; };
 		93652415279501D700380BE4 /* PlayoffLeaderboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93652414279501D700380BE4 /* PlayoffLeaderboardTests.swift */; };
@@ -36,7 +36,7 @@
 /* Begin PBXFileReference section */
 		93652400279501D500380BE4 /* PlayoffLeaderboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayoffLeaderboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93652403279501D500380BE4 /* PlayoffLeaderboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayoffLeaderboardApp.swift; sourceTree = "<group>"; };
-		93652405279501D500380BE4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		93652405279501D500380BE4 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		93652407279501D700380BE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9365240A279501D700380BE4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		93652410279501D700380BE4 /* PlayoffLeaderboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlayoffLeaderboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,7 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				93652403279501D500380BE4 /* PlayoffLeaderboardApp.swift */,
-				93652405279501D500380BE4 /* ContentView.swift */,
+				93652405279501D500380BE4 /* LoginView.swift */,
 				93652407279501D700380BE4 /* Assets.xcassets */,
 				93652409279501D700380BE4 /* Preview Content */,
 			);
@@ -257,7 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93652406279501D500380BE4 /* ContentView.swift in Sources */,
+				93652406279501D500380BE4 /* LoginView.swift in Sources */,
 				93652404279501D500380BE4 /* PlayoffLeaderboardApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
