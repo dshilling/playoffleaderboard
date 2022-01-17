@@ -7,46 +7,89 @@
 
 import SwiftUI
 
+struct LoadingView<Content>: View where Content: View {
+
+    @Binding var isLoading: Bool
+    var content: () -> Content
+    
+    var body: some View {
+        ZStack(alignment: .center) {
+            // Pass underlying view content to display here
+            content()
+                .disabled(isLoading)
+                .blur(radius: isLoading ? 2 : 0)
+            // Loading HUD
+            if isLoading {
+                ProgressHUD(isLoading: $isLoading)
+            }
+        }
+    }
+}
+
+struct ProgressHUD: View {
+    @Binding var isLoading:Bool
+    var body: some View {
+        Rectangle()
+            .fill(Color.black).opacity(isLoading ? 0.6 : 0)
+            .edgesIgnoringSafeArea(.all)
+        VStack(spacing: 48) {
+            ProgressView().scaleEffect(2.0, anchor: .center)
+            Text("Loading").font(.title).fontWeight(.semibold)
+        }
+        .frame(width: 250, height: 200)
+        .background(Color.white)
+        .foregroundColor(Color.primary)
+        .cornerRadius(16)
+    }
+}
+
 struct LoginView: View {
     
     // Services
     var service = MflApiImpl.init()
     
     // Login form
-    @State var username: String = ""
-    @State var password: String = ""
-    @State var loginError: Bool = false
+    @State private var username: String = ""
+    @State private var password: String = ""
+    @State private var loginError: Bool = false
+    @State private var isLoading: Bool = false
     
     var body: some View {
-        VStack {
-            HeadingText()
-            SubheadingText()
-            LogoImage()
-            UsernameField(username: $username)
-            PasswordField(password: $password)
-            if loginError {
-                ErrorText()
-            } else {
-                // Keeps view from resizing on error
-                HiddenErrorText()
-            }
-            Button(action: {
-                self.loginError = false
-                service.postLogin(username: username,
-                                  password: password)
-                {data, response, error in
-                    if (data != nil) {
-                        print(String(decoding: data!, as: UTF8.self))
-                    }
-                    if (error != nil) {
-                        self.loginError = true
-                    }
+        LoadingView(isLoading: $isLoading) {
+            VStack() {
+                HeadingText()
+                SubheadingText()
+                LogoImage()
+                UsernameField(username: $username)
+                PasswordField(password: $password)
+                if loginError {
+                    ErrorText()
+                } else {
+                    // Keeps view from resizing on error
+                    HiddenErrorText()
                 }
-            }) {
-                LoginButtonText()
+                Button(action: {
+                    isLoading = true
+                    self.loginError = false
+                    service.postLogin(username: username,
+                                      password: password)
+                    {data, response, error in
+                        isLoading = false
+                        // TODO handle response
+                        if ((data != nil) && (error != nil)
+                            && (String(decoding: data!, as: UTF8.self).contains("MFL_USER_ID"))) {
+                            // TODO Handle success
+                            print(String(decoding: data!, as: UTF8.self))
+                        } else {
+                            self.loginError = true
+                        }
+                    }
+                }) {
+                    LoginButtonText()
+                }
             }
+            .padding()
         }
-        .padding()
     }
 }
 
