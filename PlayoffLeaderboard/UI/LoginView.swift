@@ -7,11 +7,29 @@
 
 import SwiftUI
 
-struct LoadingView<Content>: View where Content: View {
+// MARK: - LoginView View Implementation
 
+struct LoginView: View {
+    @State private var isLoading: Bool = false
+    var body: some View {
+        LoadingView(isLoading: $isLoading) {
+            LoginForm(isLoading: $isLoading)
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView()
+    }
+}
+
+// MARK: - LoadingView - Allows for a progress HUD above the display
+
+// View
+struct LoadingView<Content>: View where Content: View {
     @Binding var isLoading: Bool
     var content: () -> Content
-    
     var body: some View {
         ZStack(alignment: .center) {
             // Pass underlying view content to display here
@@ -43,59 +61,51 @@ struct ProgressHUD: View {
     }
 }
 
-struct LoginView: View {
+// MARK: - LoginForm - Subview Displaying the Login Form
+
+struct LoginForm: View {
     
-    // Services
-    var service = MflApiImpl.init()
+    @Binding var isLoading:Bool
     
     // Login form
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var loginError: Bool = false
-    @State private var isLoading: Bool = false
     
     var body: some View {
-        LoadingView(isLoading: $isLoading) {
-            VStack() {
-                HeadingText()
-                SubheadingText()
-                LogoImage()
-                UsernameField(username: $username)
-                PasswordField(password: $password)
-                if loginError {
-                    ErrorText()
-                } else {
-                    // Keeps view from resizing on error
-                    HiddenErrorText()
-                }
-                Button(action: {
-                    isLoading = true
-                    self.loginError = false
-                    service.postLogin(username: username,
-                                      password: password)
-                    {data, response, error in
-                        isLoading = false
-                        // TODO handle response
-                        if ((data != nil) && (error != nil)
-                            && (String(decoding: data!, as: UTF8.self).contains("MFL_USER_ID"))) {
-                            // TODO Handle success
-                            print(String(decoding: data!, as: UTF8.self))
-                        } else {
-                            self.loginError = true
-                        }
-                    }
-                }) {
-                    LoginButtonText()
-                }
+        VStack() {
+            HeadingText()
+            SubheadingText()
+            LogoImage()
+            UsernameField(username: $username)
+            PasswordField(password: $password)
+            if loginError {
+                ErrorText()
+            } else {
+                // Keeps view from resizing on error
+                HiddenErrorText()
             }
-            .padding()
+            Button(action: {
+                isLoading = true
+                self.loginError = false
+                MflService.shared.postLogin(username: username,
+                                  password: password)
+                {data, response, error in
+                    isLoading = false
+                    // TODO handle response
+                    if ((data != nil) && (error != nil)
+                        && (String(decoding: data!, as: UTF8.self).contains("MFL_USER_ID"))) {
+                        // TODO Handle success
+                        print(String(decoding: data!, as: UTF8.self))
+                    } else {
+                        self.loginError = true
+                    }
+                }
+            }) {
+                LoginButtonText()
+            }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
+        .padding()
     }
 }
 

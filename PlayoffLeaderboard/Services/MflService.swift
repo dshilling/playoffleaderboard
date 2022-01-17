@@ -7,18 +7,15 @@
 
 import Foundation
 
-protocol MflService {
+class MflService {
     
-    func postLogin(username: String,
-                   password: String,
-                   completion: @escaping (Data?, URLResponse?, Error?) -> Void)
-
-}
-
-struct MflApiImpl: MflService {
+    // Singleton implementation
+    static let shared = MflService()
     
+    // Configuration Constants
     let baseUrl = "https://api.myfantasyleague.com/2021/"
     
+    // POST /login
     func postLogin(username: String,
                    password: String,
                    completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
@@ -35,4 +32,5 @@ struct MflApiImpl: MflService {
         let task = URLSession.shared.dataTask(with: request, completionHandler: completion)
         task.resume()
     }
+    
 }
