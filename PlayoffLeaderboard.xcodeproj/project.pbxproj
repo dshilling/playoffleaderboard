@@ -14,6 +14,7 @@
 		93652415279501D700380BE4 /* PlayoffLeaderboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93652414279501D700380BE4 /* PlayoffLeaderboardTests.swift */; };
 		9365241F279501D700380BE4 /* PlayoffLeaderboardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9365241E279501D700380BE4 /* PlayoffLeaderboardUITests.swift */; };
 		93652421279501D700380BE4 /* PlayoffLeaderboardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93652420279501D700380BE4 /* PlayoffLeaderboardUITestsLaunchTests.swift */; };
+		93652430279523F300380BE4 /* MflService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9365242F279523F300380BE4 /* MflService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,7 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		93652400279501D500380BE4 /* PlayoffLeaderboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayoffLeaderboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93652400279501D500380BE4 /* Playoffs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Playoffs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93652403279501D500380BE4 /* PlayoffLeaderboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayoffLeaderboardApp.swift; sourceTree = "<group>"; };
 		93652405279501D500380BE4 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		93652407279501D700380BE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -44,6 +45,7 @@
 		9365241A279501D700380BE4 /* PlayoffLeaderboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlayoffLeaderboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9365241E279501D700380BE4 /* PlayoffLeaderboardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayoffLeaderboardUITests.swift; sourceTree = "<group>"; };
 		93652420279501D700380BE4 /* PlayoffLeaderboardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayoffLeaderboardUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9365242F279523F300380BE4 /* MflService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MflService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +86,7 @@
 		93652401279501D500380BE4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				93652400279501D500380BE4 /* PlayoffLeaderboard.app */,
+				93652400279501D500380BE4 /* Playoffs.app */,
 				93652410279501D700380BE4 /* PlayoffLeaderboardTests.xctest */,
 				9365241A279501D700380BE4 /* PlayoffLeaderboardUITests.xctest */,
 			);
@@ -94,9 +96,9 @@
 		93652402279501D500380BE4 /* PlayoffLeaderboard */ = {
 			isa = PBXGroup;
 			children = (
-				93652403279501D500380BE4 /* PlayoffLeaderboardApp.swift */,
-				93652405279501D500380BE4 /* LoginView.swift */,
 				93652407279501D700380BE4 /* Assets.xcassets */,
+				9365242E2795239A00380BE4 /* UI */,
+				9365242D2795238A00380BE4 /* Services */,
 				93652409279501D700380BE4 /* Preview Content */,
 			);
 			path = PlayoffLeaderboard;
@@ -127,6 +129,23 @@
 			path = PlayoffLeaderboardUITests;
 			sourceTree = "<group>";
 		};
+		9365242D2795238A00380BE4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9365242F279523F300380BE4 /* MflService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		9365242E2795239A00380BE4 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				93652403279501D500380BE4 /* PlayoffLeaderboardApp.swift */,
+				93652405279501D500380BE4 /* LoginView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -144,7 +163,7 @@
 			);
 			name = PlayoffLeaderboard;
 			productName = PlayoffLeaderboard;
-			productReference = 93652400279501D500380BE4 /* PlayoffLeaderboard.app */;
+			productReference = 93652400279501D500380BE4 /* Playoffs.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9365240F279501D700380BE4 /* PlayoffLeaderboardTests */ = {
@@ -257,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93652430279523F300380BE4 /* MflService.swift in Sources */,
 				93652406279501D500380BE4 /* LoginView.swift in Sources */,
 				93652404279501D500380BE4 /* PlayoffLeaderboardApp.swift in Sources */,
 			);
@@ -427,13 +447,14 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.davidandanita.PlayoffLeaderboard;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Playoffs;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -456,13 +477,14 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.davidandanita.PlayoffLeaderboard;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Playoffs;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
