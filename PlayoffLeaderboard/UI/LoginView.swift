@@ -10,10 +10,58 @@ import SwiftUI
 // MARK: - LoginView View Implementation
 
 struct LoginView: View {
+    
+    // Login form
+    @State private var username: String = ""
+    @State private var password: String = ""
+    @State private var loginError: Bool = false
     @State private var isLoading: Bool = false
+    
     var body: some View {
-        LoadingView(isLoading: $isLoading) {
-            LoginForm(isLoading: $isLoading)
+        ZStack(alignment: .center) {
+            VStack() {
+                HeadingText()
+                SubheadingText()
+                LogoImage()
+                UsernameField(username: $username)
+                PasswordField(password: $password)
+                if loginError {
+                    ErrorText()
+                } else {
+                    // Keeps view from resizing on error
+                    HiddenErrorText()
+                }
+                Button(action: {
+                    isLoading = true
+                    self.loginError = false
+                    // Success completion
+                    let onSuccess = { (leagues: Leagues) in
+                        isLoading = false
+                        // TODO: HANDLE SUCCESS
+                        print("SUCCESS:")
+                        for myLeague in leagues {
+                            print(myLeague)
+                        }
+                    }
+                    // Error completion
+                    let onFailure = {
+                        self.loginError = true
+                        isLoading = false
+                    }
+                    apiTryLogin(username: username, password: password,
+                                onSuccess: onSuccess, onFailure: onFailure)
+                }) {
+                    LoginButtonText()
+                }
+            }
+            .padding()
+            .disabled(isLoading)
+            .blur(radius: isLoading ? 2 : 0)
+            
+            // Loading HUD
+            if isLoading {
+                ProgressHUD()
+            }
         }
     }
 }
@@ -24,96 +72,14 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-// MARK: - LoadingView - Allows for a progress HUD above the display
-
-// View
-struct LoadingView<Content>: View where Content: View {
-    @Binding var isLoading: Bool
-    var content: () -> Content
-    var body: some View {
-        ZStack(alignment: .center) {
-            // Pass underlying view content to display here
-            content()
-                .disabled(isLoading)
-                .blur(radius: isLoading ? 2 : 0)
-            // Loading HUD
-            if isLoading {
-                ProgressHUD(isLoading: $isLoading)
-            }
-        }
-    }
-}
-
-struct ProgressHUD: View {
-    @Binding var isLoading:Bool
-    var body: some View {
-        Rectangle()
-            .fill(Color.black).opacity(isLoading ? 0.6 : 0)
-            .edgesIgnoringSafeArea(.all)
-        VStack(spacing: 48) {
-            ProgressView().scaleEffect(2.0, anchor: .center)
-            Text("Loading").font(.title).fontWeight(.semibold)
-        }
-        .frame(width: 250, height: 200)
-        .background(Color.white)
-        .foregroundColor(Color.primary)
-        .cornerRadius(16)
-    }
-}
-
-// MARK: - LoginForm - Subview Displaying the Login Form
-
-struct LoginForm: View {
-    
-    @Binding var isLoading:Bool
-    
-    // Login form
-    @State private var username: String = ""
-    @State private var password: String = ""
-    @State private var loginError: Bool = false
-    
-    var body: some View {
-        VStack() {
-            HeadingText()
-            SubheadingText()
-            LogoImage()
-            UsernameField(username: $username)
-            PasswordField(password: $password)
-            if loginError {
-                ErrorText()
-            } else {
-                // Keeps view from resizing on error
-                HiddenErrorText()
-            }
-            Button(action: {
-                isLoading = true
-                self.loginError = false
-                MflService.shared.postLogin(username: username,
-                                  password: password)
-                {data, response, error in
-                    isLoading = false
-                    // TODO handle response
-                    if ((data != nil) && (error != nil)
-                        && (String(decoding: data!, as: UTF8.self).contains("MFL_USER_ID"))) {
-                        // TODO Handle success
-                        print(String(decoding: data!, as: UTF8.self))
-                    } else {
-                        self.loginError = true
-                    }
-                }
-            }) {
-                LoginButtonText()
-            }
-        }
-        .padding()
-    }
-}
+// MARK: - Subviews
 
 struct HeadingText: View {
     var body: some View {
         Text("Playoff Leaderboard")
             .font(.largeTitle)
             .fontWeight(.semibold)
+            .foregroundColor(Color("AppNavy"))
             .padding(.bottom, 15)
     }
 }
@@ -121,6 +87,7 @@ struct HeadingText: View {
 struct SubheadingText: View {
     var body: some View {
         Text("Follow your quest for glory in your [MFL](http://home.myfantasyleague.com/playoff-leagues) playoff fantasy football league")
+            .foregroundColor(Color("AppNavy"))
             .padding(.bottom, 20)
             .multilineTextAlignment(.center)
     }
@@ -142,6 +109,7 @@ struct UsernameField: View {
     @Binding var username: String
     var body: some View {
         TextField("Your MFL Username", text: $username)
+            .autocapitalization(.none)
             .padding()
             .cornerRadius(5.0)
             .background(Color("AppGray"))
@@ -185,5 +153,89 @@ struct LoginButtonText: View {
             .frame(width: 220, height: 60)
             .background(Color("AccentColor"))
             .cornerRadius(15.0)
+    }
+}
+
+struct ProgressHUD: View {
+    var body: some View {
+        Rectangle()
+            .fill(Color.black)
+            .opacity(0.6)
+            .edgesIgnoringSafeArea(.all)
+        VStack(spacing: 48) {
+            ProgressView()
+                .scaleEffect(2.0, anchor: .center)
+            Text("Loading")
+                .font(.title)
+                .fontWeight(.semibold)
+        }
+        .frame(width: 250, height: 200)
+        .background(Color.white)
+        .foregroundColor(Color.primary)
+        .cornerRadius(16)
+    }
+}
+
+// MARK: - Private Methods
+
+func apiTryLogin(username: String,
+                 password: String,
+                 onSuccess: @escaping (Leagues) -> Void,
+                 onFailure: @escaping () -> Void)
+{
+    MflService.shared.postLogin(username: username, password: password)
+    {data, response, error in
+        // Check for errors
+        guard let data = data,
+              let response = response,
+              error == nil,
+              String(decoding: data, as: UTF8.self).contains("MFL_USER_ID") else {
+                  DispatchQueue.main.async {
+                      onFailure()
+                  }
+                  return
+        }
+        // Save session cookie
+        let httpResponse:HTTPURLResponse = response as! HTTPURLResponse
+        let httpHeaders: [String:String] = httpResponse.allHeaderFields as! [String:String]
+        let httpCookies = HTTPCookie.cookies(withResponseHeaderFields: httpHeaders,
+                                             for: response.url ?? URL(string: "")!)
+        for cookie in httpCookies {
+            HTTPCookieStorage.shared.setCookie(cookie)
+        }
+        // Test Cookie By Retreiving Leagues
+        apiTestSession(onSuccess: onSuccess, onFailure: onFailure)
+    }
+}
+
+func apiTestSession(onSuccess: @escaping (Leagues) -> Void,
+                    onFailure: @escaping () -> Void)
+{
+    MflService.shared.exportMyLeagues()
+    {data, response, error in
+        // Check for errors
+        guard let data = data,
+              let response = response,
+              error == nil,
+              (response as! HTTPURLResponse).statusCode == 200 else {
+                  DispatchQueue.main.async {
+                      onFailure()
+                  }
+                  return
+        }
+        // Handle success
+        DispatchQueue.main.async {
+            // TODO: SUCCESS
+            var myLeagues = Leagues()
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            do {
+                let leaguesObj = try decoder.decode(LeaguesObj.self, from: data)
+                myLeagues = leaguesObj.leagues.league
+            } catch {
+                print("Leagues: JSON deserialization failed")
+            }
+            onSuccess(myLeagues)
+        }
     }
 }

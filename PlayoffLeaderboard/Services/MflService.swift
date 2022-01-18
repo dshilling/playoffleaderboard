@@ -19,7 +19,6 @@ class MflService {
     func postLogin(username: String,
                    password: String,
                    completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        
         // Request
         let url = URL(string: baseUrl + "login")!
         let paramData : Data = "USERNAME=\(username)&PASSWORD=\(password)&XML=1".data(using: .utf8)!
@@ -27,7 +26,17 @@ class MflService {
         request.httpMethod = "POST"
         request.httpBody = paramData
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
-        
+        // Session
+        let task = URLSession.shared.dataTask(with: request, completionHandler: completion)
+        task.resume()
+    }
+    
+    // EXPORT myleagues
+    func exportMyLeagues(completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        // Request
+        let url = URL(string: baseUrl + "export?TYPE=myleagues&YEAR=2021&FRANCHISE_NAMES=1&JSON=1")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
         // Session
         let task = URLSession.shared.dataTask(with: request, completionHandler: completion)
         task.resume()
