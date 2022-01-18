@@ -16,6 +16,9 @@
 		93652421279501D700380BE4 /* PlayoffLeaderboardUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93652420279501D700380BE4 /* PlayoffLeaderboardUITestsLaunchTests.swift */; };
 		93652430279523F300380BE4 /* MflService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9365242F279523F300380BE4 /* MflService.swift */; };
 		936524332796739E00380BE4 /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524322796739E00380BE4 /* League.swift */; };
+		936524352796822E00380BE4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524342796822E00380BE4 /* ContentView.swift */; };
+		936524382796847C00380BE4 /* MflController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524372796847C00380BE4 /* MflController.swift */; };
+		9365243A2796857900380BE4 /* LeaguesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524392796857900380BE4 /* LeaguesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,9 @@
 		93652420279501D700380BE4 /* PlayoffLeaderboardUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayoffLeaderboardUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9365242F279523F300380BE4 /* MflService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MflService.swift; sourceTree = "<group>"; };
 		936524322796739E00380BE4 /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
+		936524342796822E00380BE4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		936524372796847C00380BE4 /* MflController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MflController.swift; sourceTree = "<group>"; };
+		936524392796857900380BE4 /* LeaguesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +108,7 @@
 				93652407279501D700380BE4 /* Assets.xcassets */,
 				9365242E2795239A00380BE4 /* UI */,
 				9365242D2795238A00380BE4 /* Services */,
+				936524362796843F00380BE4 /* Controllers */,
 				93652409279501D700380BE4 /* Preview Content */,
 			);
 			path = PlayoffLeaderboard;
@@ -144,7 +151,9 @@
 			isa = PBXGroup;
 			children = (
 				93652403279501D500380BE4 /* PlayoffLeaderboardApp.swift */,
+				936524342796822E00380BE4 /* ContentView.swift */,
 				93652405279501D500380BE4 /* LoginView.swift */,
+				936524392796857900380BE4 /* LeaguesView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -155,6 +164,14 @@
 				936524322796739E00380BE4 /* League.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		936524362796843F00380BE4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				936524372796847C00380BE4 /* MflController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,7 +305,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				93652430279523F300380BE4 /* MflService.swift in Sources */,
+				936524352796822E00380BE4 /* ContentView.swift in Sources */,
+				936524382796847C00380BE4 /* MflController.swift in Sources */,
 				93652406279501D500380BE4 /* LoginView.swift in Sources */,
+				9365243A2796857900380BE4 /* LeaguesView.swift in Sources */,
 				936524332796739E00380BE4 /* League.swift in Sources */,
 				93652404279501D500380BE4 /* PlayoffLeaderboardApp.swift in Sources */,
 			);

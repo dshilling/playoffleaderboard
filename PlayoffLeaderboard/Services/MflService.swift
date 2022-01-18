@@ -8,15 +8,12 @@
 import Foundation
 
 class MflService {
-    
-    // Singleton implementation
-    static let shared = MflService()
-    
+        
     // Configuration Constants
-    let baseUrl = "https://api.myfantasyleague.com/2021/"
+    static let baseUrl = "https://api.myfantasyleague.com/2021/"
     
     // POST /login
-    func postLogin(username: String,
+    static func postLogin(username: String,
                    password: String,
                    completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
         // Request
@@ -32,7 +29,7 @@ class MflService {
     }
     
     // EXPORT myleagues
-    func exportMyLeagues(completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    static func exportMyLeagues(completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
         // Request
         let url = URL(string: baseUrl + "export?TYPE=myleagues&YEAR=2021&FRANCHISE_NAMES=1&JSON=1")!
         var request = URLRequest(url: url)

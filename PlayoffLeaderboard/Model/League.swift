@@ -7,6 +7,18 @@
 
 import Foundation
 
+class MyLeagues: ObservableObject {
+    var leagues: Leagues
+    
+    init() {
+        leagues = Leagues()
+    }
+    
+    init(withLeagues: Leagues) {
+        leagues = withLeagues
+    }
+}
+
 // MFL API object
 struct League: Codable {
     var franchiseId: String
