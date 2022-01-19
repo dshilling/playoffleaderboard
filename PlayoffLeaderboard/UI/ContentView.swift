@@ -25,7 +25,16 @@ struct ContentView: View {
                     .navigationBarHidden(true)
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .environmentObject(myLeagues)
+    }
+    
+    init() {
+        // Set title text color
+        let navBarAppearance = UINavigationBar.appearance()
+        let appNavy = UIColor(red:CGFloat(Float(0x14)/255.0), green:CGFloat(Float(0x14)/255.0), blue:CGFloat(Float(0x23)/255.0), alpha:1)
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: appNavy]
+        navBarAppearance.titleTextAttributes = [.foregroundColor: appNavy]
     }
     
 }

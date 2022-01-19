@@ -64,7 +64,23 @@ struct LoginView: View {
                 ProgressHUD()
             }
         }
+        .onAppear {
+            // Check if user is logged in already
+            isLoading = true
+            // Success completion
+            let onSuccess = { (leagues: Leagues) in
+                isLoading = false
+                myLeagues.leagues = leagues
+                selectedView = "LeaguesTag"
+            }
+            // Error completion
+            let onFailure = {
+                isLoading = false
+            }
+            MflController.apiTestSession(onSuccess: onSuccess, onFailure: onFailure)
+        }
     }
+    
 }
 
 // MARK: - Subviews
