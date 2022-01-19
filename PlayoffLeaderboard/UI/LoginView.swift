@@ -13,7 +13,7 @@ struct LoginView: View {
     @EnvironmentObject var myLeagues: MyLeagues
     
     // Bindings
-    @Binding var selectedView: String?
+    @Binding var isLoggedIn: Bool
     
     // State variables
     @State private var username: String = ""
@@ -42,7 +42,7 @@ struct LoginView: View {
                     let onSuccess = { (leagues: Leagues) in
                         isLoading = false
                         myLeagues.leagues = leagues
-                        selectedView = "LeaguesTag"
+                        isLoggedIn = true
                     }
                     // Error completion
                     let onFailure = {
@@ -65,13 +65,14 @@ struct LoginView: View {
             }
         }
         .onAppear {
+            isLoggedIn = false
             // Check if user is logged in already
             isLoading = true
             // Success completion
             let onSuccess = { (leagues: Leagues) in
                 isLoading = false
                 myLeagues.leagues = leagues
-                selectedView = "LeaguesTag"
+                isLoggedIn = true
             }
             // Error completion
             let onFailure = {

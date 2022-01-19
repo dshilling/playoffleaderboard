@@ -15,20 +15,14 @@ struct LeaguesView: View {
     
     // Needed for custom back button
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
-    // Bindings
-    @Binding var selectedView: String?
-    
+        
     var body: some View {
         List {
             Section {
                 if myLeagues.leagues.count > 0 {
                     ForEach(0 ..< myLeagues.leagues.count) { index in
                         let league = myLeagues.leagues[index]
-                        Button(action: {
-                            myLeagues.league = league
-                            selectedView = "LeagueTag"
-                        }) {
+                        NavigationLink(destination: LeagueView(withLeague: league)) {
                             Label(league.name, systemImage: "arrow.right.circle.fill" )
                                 .font(.title3)
                         }

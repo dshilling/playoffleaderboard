@@ -11,14 +11,19 @@ import SwiftUI
 struct LeagueView: View {
     
     // Environment Objects
-    @EnvironmentObject var myLeagues: MyLeagues
-        
+    var league: League
+    
+    init(withLeague: League) {
+        league = withLeague
+    }
+    
     var body: some View {
         VStack {
-            Text("League selected.")
+            Text("League leaderboard will go here.")
         }
         .foregroundColor(Color("AppNavy"))
-        .navigationTitle(myLeagues.league!.name)
+        .navigationTitle(league.name)
+        .navigationBarTitleDisplayMode(.inline)
     }
     
 }
