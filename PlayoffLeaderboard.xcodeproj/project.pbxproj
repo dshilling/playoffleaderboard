@@ -19,6 +19,7 @@
 		936524352796822E00380BE4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524342796822E00380BE4 /* ContentView.swift */; };
 		936524382796847C00380BE4 /* MflController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524372796847C00380BE4 /* MflController.swift */; };
 		9365243A2796857900380BE4 /* LeaguesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524392796857900380BE4 /* LeaguesView.swift */; };
+		9365243C2797D1FA00380BE4 /* LeagueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9365243B2797D1FA00380BE4 /* LeagueView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		936524342796822E00380BE4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		936524372796847C00380BE4 /* MflController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MflController.swift; sourceTree = "<group>"; };
 		936524392796857900380BE4 /* LeaguesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesView.swift; sourceTree = "<group>"; };
+		9365243B2797D1FA00380BE4 /* LeagueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 				936524342796822E00380BE4 /* ContentView.swift */,
 				93652405279501D500380BE4 /* LoginView.swift */,
 				936524392796857900380BE4 /* LeaguesView.swift */,
+				9365243B2797D1FA00380BE4 /* LeagueView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93652430279523F300380BE4 /* MflService.swift in Sources */,
+				9365243C2797D1FA00380BE4 /* LeagueView.swift in Sources */,
 				936524352796822E00380BE4 /* ContentView.swift in Sources */,
 				936524382796847C00380BE4 /* MflController.swift in Sources */,
 				93652406279501D500380BE4 /* LoginView.swift in Sources */,

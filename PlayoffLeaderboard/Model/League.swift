@@ -7,16 +7,19 @@
 
 import Foundation
 
+// Observable class for managing application state
 class MyLeagues: ObservableObject {
+    
+    // All leagues for this user
     var leagues: Leagues
+    
+    var league: League?
     
     init() {
         leagues = Leagues()
+        league = nil
     }
     
-    init(withLeagues: Leagues) {
-        leagues = withLeagues
-    }
 }
 
 // MFL API object

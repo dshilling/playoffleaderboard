@@ -11,13 +11,19 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var selectedView: String? = nil
+    @State private var selectedLeague: Int = 0
     @StateObject var myLeagues = MyLeagues()
     
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: LeaguesView(),
+                // NavigationLink for LeaguesView
+                NavigationLink(destination: LeaguesView(selectedView: $selectedView),
                                tag: "LeaguesTag",
+                               selection: $selectedView) { EmptyView() }
+                //NavigationLink for LeagueView
+                NavigationLink(destination: LeagueView(),
+                               tag: "LeagueTag",
                                selection: $selectedView) { EmptyView() }
                 // Start with the login view
                 LoginView(selectedView: $selectedView)
