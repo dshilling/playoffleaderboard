@@ -26,9 +26,7 @@ class MflController {
                   error == nil,
                   String(decoding: data, as: UTF8.self).contains("MFL_USER_ID") else {
                       print("Login: error response from the server")
-                      DispatchQueue.main.async {
-                          onFailure()
-                      }
+                      onFailure()
                       return
             }
             // Save session cookie
@@ -67,25 +65,21 @@ class MflController {
                   error == nil,
                   (response as! HTTPURLResponse).statusCode == 200 else {
                       print("Leagues: error response from the server")
-                      DispatchQueue.main.async {
-                          onFailure()
-                      }
+                      onFailure()
                       return
             }
             // Handle success
-            DispatchQueue.main.async {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                do {
-                    let leaguesObj = try decoder.decode(LeaguesObj.self, from: data)
-                    var myLeagues = Leagues()
-                    myLeagues = leaguesObj.leagues.league
-                    print("Leagues: Successfully fetched", myLeagues.count, "leagues for user")
-                    onSuccess(myLeagues)
-                } catch {
-                    print("Leagues: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
-                    onFailure()
-                }
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            do {
+                let leaguesObj = try decoder.decode(LeaguesObj.self, from: data)
+                var myLeagues = Leagues()
+                myLeagues = leaguesObj.leagues.league
+                print("Leagues: Successfully fetched", myLeagues.count, "leagues for user")
+                onSuccess(myLeagues)
+            } catch {
+                print("Leagues: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
+                onFailure()
             }
         }
     }
@@ -103,9 +97,7 @@ class MflController {
                   error == nil,
                   (response as! HTTPURLResponse).statusCode == 200 else {
                       print("API Status: error response from the server")
-                      DispatchQueue.main.async {
-                          onFailure()
-                      }
+                      onFailure()
                       return
             }
             // Handle success
@@ -147,9 +139,7 @@ class MflController {
                   error == nil,
                   (response as! HTTPURLResponse).statusCode == 200 else {
                       print("League: error response from the server")
-                      DispatchQueue.main.async {
-                          onFailure()
-                      }
+                      onFailure()
                       return
             }
             // Handle success
@@ -182,9 +172,7 @@ class MflController {
                   error == nil,
                   (response as! HTTPURLResponse).statusCode == 200 else {
                       print("League Standings: error response from the server")
-                      DispatchQueue.main.async {
-                          onFailure()
-                      }
+                      onFailure()
                       return
             }
             // Handle success
@@ -217,24 +205,20 @@ class MflController {
                   error == nil,
                   (response as! HTTPURLResponse).statusCode == 200 else {
                       print("Live Scoring: error response from the server")
-                      DispatchQueue.main.async {
-                          onFailure()
-                      }
+                      onFailure()
                       return
             }
             // Handle success
-            DispatchQueue.main.async {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                do {
-                    let decodedData = try decoder.decode(LiveScoringResponse.self, from: data)
-                    intoObject.liveScoring = decodedData.liveScoring
-                    print("Live Scoring: Successfully fetched standings for", decodedData.liveScoring.franchise.count, "franchises")
-                    onSuccess()
-                } catch {
-                    print("Live Scoring: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
-                    onFailure()
-                }
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            do {
+                let decodedData = try decoder.decode(LiveScoringResponse.self, from: data)
+                intoObject.liveScoring = decodedData.liveScoring
+                print("Live Scoring: Successfully fetched standings for", decodedData.liveScoring.franchise.count, "franchises")
+                onSuccess()
+            } catch {
+                print("Live Scoring: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
+                onFailure()
             }
         }
     }
