@@ -24,9 +24,14 @@ struct LeagueView: View {
     var body: some View {
         ZStack(alignment: .center) {
             VStack {
-                Text("League leaderboard will go here.")
+                // TODO: Complete This Section
+                Text("Teams:")
                 ForEach((leaderboard.leagueDetails?.franchises.franchise)!, id:\.self) {franchise in
                     Text(franchise.id + ", " + franchise.name)
+                }
+                Text("Teams:")
+                ForEach((leaderboard.leagueStandings?.franchise)!, id:\.self) {franchise in
+                    Text(franchise.id + ", " + franchise.pf)
                 }
             }
             .foregroundColor(Color("AppNavy"))

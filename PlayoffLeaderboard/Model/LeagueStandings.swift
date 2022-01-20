@@ -19,7 +19,10 @@ struct LeagueStandings: Codable {
     }
 }
 
-struct LeagueStandingsFranchise: Codable {
+struct LeagueStandingsFranchise: Codable, Hashable {
     var id: String
     var pf: String
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id+pf)
+    }
 }

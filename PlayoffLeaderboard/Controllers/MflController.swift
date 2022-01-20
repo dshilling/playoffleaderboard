@@ -112,29 +112,65 @@ class MflController {
                       return
             }
             // Handle success
-            DispatchQueue.main.async {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                do {
-                    let decodedData = try decoder.decode(LeagueDetailsResponse.self, from: data)
-                    toLeaderboard.leagueDetails = decodedData.league
-                    print("League: Successfully fetched league details for league", decodedData.league.id)
-                    onSuccess()
-                } catch {
-                    print("League: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
-                    onFailure()
-                }
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            do {
+                let decodedData = try decoder.decode(LeagueDetailsResponse.self, from: data)
+                toLeaderboard.leagueDetails = decodedData.league
+                print("League: Successfully fetched league details for league", decodedData.league.id)
+                // Continue to next request
+                apiUpdateLeaderboardStandings(forLeague: forLeague, toLeaderboard: toLeaderboard, onSuccess: onSuccess, onFailure: onFailure)
+            } catch {
+                print("League: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
+                onFailure()
             }
         }
     }
 
     
-// MARK: - Private helper methods
+// MARK: - Private methods
     
     // Truncate the URL returned by the myLeagues API to just the api base
     private static func getBaseUrl(forLeague: League) -> String {
         // "https://www69.myfantasyleague.com/2021/home/51911"
         return forLeague.url.components(separatedBy: "home")[0]
+    }
+    
+    // Continue leaderboard request by fetching leagueStandings next
+    static func apiUpdateLeaderboardStandings(forLeague: League,
+                                              toLeaderboard: LeagueLeaderboard,
+                                              onSuccess: @escaping () -> Void,
+                                              onFailure: @escaping () -> Void)
+    {
+        // Begin by fetching league details
+        MflService.exportLeagueStandings(leagueBaseUrl: getBaseUrl(forLeague: forLeague), leagueId: forLeague.leagueId)
+        {data, response, error in
+            // Check for errors
+            guard let data = data,
+                  let response = response,
+                  error == nil,
+                  (response as! HTTPURLResponse).statusCode == 200 else {
+                      print("League Standings: error response from the server")
+                      DispatchQueue.main.async {
+                          onFailure()
+                      }
+                      return
+            }
+            // Handle success
+            DispatchQueue.main.async {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                do {
+                    let decodedData = try decoder.decode(LeagueStandingsResponse.self, from: data)
+                    toLeaderboard.leagueStandings = decodedData.leagueStandings
+                    print("League Standings: Successfully fetched standings for", decodedData.leagueStandings.franchise.count, "franchises")
+                    onSuccess()
+                } catch {
+                    print("League Standings: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
+                    onFailure()
+                }
+            }
+        }
     }
     
 }

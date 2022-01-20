@@ -56,6 +56,6 @@ struct Franchise: Codable, Hashable {
     var id: String
     var name: String
     func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+        hasher.combine(id+name)
     }
 }
