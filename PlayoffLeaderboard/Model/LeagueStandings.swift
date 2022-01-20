@@ -10,6 +10,9 @@ import Foundation
 // MFL API object
 struct LeagueStandingsResponse: Codable {
     var leagueStandings: LeagueStandings
+    init () {
+        leagueStandings = LeagueStandings()
+    }
 }
 
 struct LeagueStandings: Codable {

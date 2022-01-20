@@ -29,6 +29,16 @@ class MflService {
         task.resume()
     }
     
+    // GET MFL Status
+    // https://api.myfantasyleague.com/fflnetdynamic2021/mfl_status.json
+    static func getMflStatus(completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        let url = URL(string: "https://api.myfantasyleague.com/fflnetdynamic2021/mfl_status.json")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request, completionHandler: completion)
+        task.resume()
+    }
+    
     // EXPORT myleagues
     // https://api.myfantasyleague.com/2021/api_info?STATE=test&CCAT=export&TYPE=myleagues
     static func exportMyLeagues(completion: @escaping (Data?, URLResponse?, Error?) -> Void) {

@@ -17,8 +17,7 @@ class MflController {
     static func apiTryLogin(username: String,
                      password: String,
                      onSuccess: @escaping (Leagues) -> Void,
-                     onFailure: @escaping () -> Void)
-    {
+                     onFailure: @escaping () -> Void) {
         MflService.postLogin(username: username, password: password)
         {data, response, error in
             // Check for errors
@@ -59,8 +58,7 @@ class MflController {
     }
 
     static func apiTestSession(onSuccess: @escaping (Leagues) -> Void,
-                        onFailure: @escaping () -> Void)
-    {
+                        onFailure: @escaping () -> Void) {
         MflService.exportMyLeagues()
         {data, response, error in
             // Check for errors
@@ -76,11 +74,11 @@ class MflController {
             }
             // Handle success
             DispatchQueue.main.async {
-                var myLeagues = Leagues()
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 do {
                     let leaguesObj = try decoder.decode(LeaguesObj.self, from: data)
+                    var myLeagues = Leagues()
                     myLeagues = leaguesObj.leagues.league
                     print("Leagues: Successfully fetched", myLeagues.count, "leagues for user")
                     onSuccess(myLeagues)
@@ -95,8 +93,51 @@ class MflController {
     static func apiUpdateLeaderboard(forLeague: League,
                                      toLeaderboard: LeagueLeaderboard,
                                      onSuccess: @escaping () -> Void,
-                                     onFailure: @escaping () -> Void)
-    {
+                                     onFailure: @escaping () -> Void) {
+        // Begin by fetching MFL status to get current year and week data
+        MflService.getMflStatus()
+        {data, response, error in
+            // Check for errors
+            guard let data = data,
+                  let response = response,
+                  error == nil,
+                  (response as! HTTPURLResponse).statusCode == 200 else {
+                      print("API Status: error response from the server")
+                      DispatchQueue.main.async {
+                          onFailure()
+                      }
+                      return
+            }
+            // Handle success
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            do {
+                let decodedData = try decoder.decode(MflStatusResponse.self, from: data)
+                toLeaderboard.mflStatus = decodedData.mflStatus
+                print("API Status: Successfully fetched API status")
+                // Continue to next request
+                apiUpdateLeaderboardLeague(forLeague: forLeague, toLeaderboard: toLeaderboard, onSuccess: onSuccess, onFailure: onFailure)
+            } catch {
+                print("API Status: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
+                onFailure()
+            }
+        }
+    }
+
+    
+// MARK: - Private methods
+    
+    // Truncate the URL returned by the myLeagues API to just the api base
+    private static func getBaseUrl(forLeague: League) -> String {
+        // "https://www69.myfantasyleague.com/2021/home/51911"
+        return forLeague.url.components(separatedBy: "home")[0]
+    }
+    
+    // Continue leaderboard request by fetching league next
+    static func apiUpdateLeaderboardLeague(forLeague: League,
+                                           toLeaderboard: LeagueLeaderboard,
+                                           onSuccess: @escaping () -> Void,
+                                           onFailure: @escaping () -> Void) {
         // Begin by fetching league details
         MflService.exportLeague(leagueBaseUrl: getBaseUrl(forLeague: forLeague), leagueId: forLeague.leagueId)
         {data, response, error in
@@ -125,15 +166,6 @@ class MflController {
                 onFailure()
             }
         }
-    }
-
-    
-// MARK: - Private methods
-    
-    // Truncate the URL returned by the myLeagues API to just the api base
-    private static func getBaseUrl(forLeague: League) -> String {
-        // "https://www69.myfantasyleague.com/2021/home/51911"
-        return forLeague.url.components(separatedBy: "home")[0]
     }
     
     // Continue leaderboard request by fetching leagueStandings next

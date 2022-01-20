@@ -24,6 +24,8 @@
 		936524432798E33400380BE4 /* LeagueDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524422798E33400380BE4 /* LeagueDetails.swift */; };
 		936524452798F38800380BE4 /* LeagueStandings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524442798F38800380BE4 /* LeagueStandings.swift */; };
 		936524472798F63500380BE4 /* LiveScoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524462798F63500380BE4 /* LiveScoring.swift */; };
+		93B2CDA927991FA700B864EA /* MflStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDA827991FA700B864EA /* MflStatus.swift */; };
+		93B2CDAB279924C000B864EA /* LeagueLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDAA279924C000B864EA /* LeagueLeaderboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		936524422798E33400380BE4 /* LeagueDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetails.swift; sourceTree = "<group>"; };
 		936524442798F38800380BE4 /* LeagueStandings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueStandings.swift; sourceTree = "<group>"; };
 		936524462798F63500380BE4 /* LiveScoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveScoring.swift; sourceTree = "<group>"; };
+		93B2CDA827991FA700B864EA /* MflStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MflStatus.swift; sourceTree = "<group>"; };
+		93B2CDAA279924C000B864EA /* LeagueLeaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueLeaderboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,10 +174,12 @@
 		936524312796738900380BE4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				93B2CDA827991FA700B864EA /* MflStatus.swift */,
 				936524322796739E00380BE4 /* League.swift */,
 				936524422798E33400380BE4 /* LeagueDetails.swift */,
 				936524442798F38800380BE4 /* LeagueStandings.swift */,
 				936524462798F63500380BE4 /* LiveScoring.swift */,
+				93B2CDAA279924C000B864EA /* LeagueLeaderboard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -349,10 +355,12 @@
 				936524352796822E00380BE4 /* ContentView.swift in Sources */,
 				936524382796847C00380BE4 /* MflController.swift in Sources */,
 				93652406279501D500380BE4 /* LoginView.swift in Sources */,
+				93B2CDAB279924C000B864EA /* LeagueLeaderboard.swift in Sources */,
 				9365243A2796857900380BE4 /* LeaguesView.swift in Sources */,
 				936524332796739E00380BE4 /* League.swift in Sources */,
 				936524432798E33400380BE4 /* LeagueDetails.swift in Sources */,
 				936524412798DE4600380BE4 /* LoadingDialogView.swift in Sources */,
+				93B2CDA927991FA700B864EA /* MflStatus.swift in Sources */,
 				936524452798F38800380BE4 /* LeagueStandings.swift in Sources */,
 				93652404279501D500380BE4 /* PlayoffLeaderboardApp.swift in Sources */,
 			);

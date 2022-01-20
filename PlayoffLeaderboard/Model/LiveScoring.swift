@@ -10,6 +10,9 @@ import Foundation
 // MFL API object
 struct LiveScoringResponse: Codable {
     var liveScoring: LiveScoring
+    init () {
+        liveScoring = LiveScoring()
+    }
 }
 
 struct LiveScoring: Codable {

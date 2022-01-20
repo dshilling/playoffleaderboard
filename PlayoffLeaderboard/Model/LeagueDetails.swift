@@ -7,29 +7,12 @@
 
 import Foundation
 
-// Observable class for managing application state
-class LeagueLeaderboard: ObservableObject {
-    
-    // Selected league details obj
-    var leagueDetails: LeagueDetails?
-    
-    // Standings of selected league after most recently completed week
-    var leagueStandings: LeagueStandings?
-    
-    // Live scoring for selected league in the current week
-    var liveScoring: LiveScoring?
-    
-    init() {
-        leagueDetails = LeagueDetails()
-        leagueStandings = LeagueStandings()
-        liveScoring = LiveScoring()
-    }
-    
-}
-
 // MFL API object
 struct LeagueDetailsResponse: Codable {
     var league: LeagueDetails
+    init() {
+        league = LeagueDetails()
+    }
 }
 
 struct LeagueDetails: Codable {

@@ -25,18 +25,23 @@ struct LeagueView: View {
         ZStack(alignment: .center) {
             VStack {
                 // TODO: Complete This Section
+                Text("Year:" + leaderboard.mflStatus.year)
+                Text("Live Week:" + leaderboard.mflStatus.weeks.LiveScoringWeek)
+                Text("Completed Week:" + leaderboard.mflStatus.weeks.CompletedWeek)
+                /*
                 Text("Teams:")
-                ForEach((leaderboard.leagueDetails?.franchises.franchise)!, id:\.self) {franchise in
+                ForEach(leaderboard.leagueDetails.franchises.franchise, id:\.self) {franchise in
                     Text(franchise.id + ", " + franchise.name)
                 }
                 Text("Scores:").padding(.top, 20)
-                ForEach((leaderboard.leagueStandings?.franchise)!, id:\.self) {franchise in
+                ForEach(leaderboard.leagueStandings.franchise, id:\.self) {franchise in
                     Text(franchise.id + ", " + franchise.pf)
                 }
                 Text("Live Scores:").padding(.top, 20)
-                ForEach((leaderboard.liveScoring?.franchise)!, id:\.self) {franchise in
+                ForEach(leaderboard.liveScoring.franchise, id:\.self) {franchise in
                     Text(franchise.id + ", " + franchise.score + ", " + franchise.gameSecondsRemaining)
                 }
+                */
             }
             .foregroundColor(Color("AppNavy"))
             .padding()
