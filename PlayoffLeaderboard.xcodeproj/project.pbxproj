@@ -20,6 +20,7 @@
 		936524382796847C00380BE4 /* MflController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524372796847C00380BE4 /* MflController.swift */; };
 		9365243A2796857900380BE4 /* LeaguesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524392796857900380BE4 /* LeaguesView.swift */; };
 		9365243C2797D1FA00380BE4 /* LeagueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9365243B2797D1FA00380BE4 /* LeagueView.swift */; };
+		936524412798DE4600380BE4 /* LoadingDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524402798DE4600380BE4 /* LoadingDialogView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		936524372796847C00380BE4 /* MflController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MflController.swift; sourceTree = "<group>"; };
 		936524392796857900380BE4 /* LeaguesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesView.swift; sourceTree = "<group>"; };
 		9365243B2797D1FA00380BE4 /* LeagueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueView.swift; sourceTree = "<group>"; };
+		936524402798DE4600380BE4 /* LoadingDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDialogView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,11 +154,9 @@
 		9365242E2795239A00380BE4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				93652403279501D500380BE4 /* PlayoffLeaderboardApp.swift */,
-				936524342796822E00380BE4 /* ContentView.swift */,
-				93652405279501D500380BE4 /* LoginView.swift */,
-				936524392796857900380BE4 /* LeaguesView.swift */,
-				9365243B2797D1FA00380BE4 /* LeagueView.swift */,
+				9365243F2798DE0A00380BE4 /* Root */,
+				9365243E2798DDF800380BE4 /* Pages */,
+				9365243D2798DDE700380BE4 /* Components */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -175,6 +175,33 @@
 				936524372796847C00380BE4 /* MflController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9365243D2798DDE700380BE4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				936524402798DE4600380BE4 /* LoadingDialogView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		9365243E2798DDF800380BE4 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				93652405279501D500380BE4 /* LoginView.swift */,
+				936524392796857900380BE4 /* LeaguesView.swift */,
+				9365243B2797D1FA00380BE4 /* LeagueView.swift */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		9365243F2798DE0A00380BE4 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				93652403279501D500380BE4 /* PlayoffLeaderboardApp.swift */,
+				936524342796822E00380BE4 /* ContentView.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,6 +341,7 @@
 				93652406279501D500380BE4 /* LoginView.swift in Sources */,
 				9365243A2796857900380BE4 /* LeaguesView.swift in Sources */,
 				936524332796739E00380BE4 /* League.swift in Sources */,
+				936524412798DE4600380BE4 /* LoadingDialogView.swift in Sources */,
 				93652404279501D500380BE4 /* PlayoffLeaderboardApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

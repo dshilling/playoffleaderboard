@@ -36,18 +36,21 @@ struct LoginView: View {
                     HiddenErrorText()
                 }
                 Button(action: {
-                    isLoading = true
+                    // We get an error when modifying below state variables while TextField editing is ongoing
+                    UIApplication.shared.endEditing()
+                    // Try login
+                    self.isLoading = true
                     self.loginError = false
                     // Success completion
                     let onSuccess = { (leagues: Leagues) in
-                        isLoading = false
-                        myLeagues.leagues = leagues
-                        isLoggedIn = true
+                        self.isLoading = false
+                        self.myLeagues.leagues = leagues
+                        self.isLoggedIn = true
                     }
                     // Error completion
                     let onFailure = {
                         self.loginError = true
-                        isLoading = false
+                        self.isLoading = false
                     }
                     MflController.apiTryLogin(username: username, password: password,
                                               onSuccess: onSuccess, onFailure: onFailure)
@@ -56,27 +59,27 @@ struct LoginView: View {
                 }
             }
             .padding()
-            .disabled(isLoading)
-            .blur(radius: isLoading ? 2 : 0)
+            .disabled(self.isLoading)
+            .blur(radius: self.isLoading ? 2 : 0)
             
             // Loading HUD
-            if isLoading {
-                ProgressHUD()
+            if self.isLoading {
+                LoadingDialogView()
             }
         }
         .onAppear {
-            isLoggedIn = false
+            self.isLoggedIn = false
             // Check if user is logged in already
-            isLoading = true
+            self.isLoading = true
             // Success completion
             let onSuccess = { (leagues: Leagues) in
-                isLoading = false
-                myLeagues.leagues = leagues
-                isLoggedIn = true
+                self.isLoading = false
+                self.myLeagues.leagues = leagues
+                self.isLoggedIn = true
             }
             // Error completion
             let onFailure = {
-                isLoading = false
+                self.isLoading = false
             }
             MflController.apiTestSession(onSuccess: onSuccess, onFailure: onFailure)
         }
@@ -165,25 +168,5 @@ struct LoginButtonText: View {
             .frame(width: 220, height: 60)
             .background(Color("AccentColor"))
             .cornerRadius(15.0)
-    }
-}
-
-struct ProgressHUD: View {
-    var body: some View {
-        Rectangle()
-            .fill(Color.black)
-            .opacity(0.6)
-            .edgesIgnoringSafeArea(.all)
-        VStack(spacing: 48) {
-            ProgressView()
-                .scaleEffect(2.0, anchor: .center)
-            Text("Loading")
-                .font(.title)
-                .fontWeight(.semibold)
-        }
-        .frame(width: 250, height: 200)
-        .background(Color.white)
-        .foregroundColor(Color.primary)
-        .cornerRadius(16)
     }
 }

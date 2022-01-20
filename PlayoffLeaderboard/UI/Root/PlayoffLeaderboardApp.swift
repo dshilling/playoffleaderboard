@@ -15,3 +15,10 @@ struct PlayoffLeaderboardApp: App {
         }
     }
 }
+
+// Shared function that will dismiss the active keyboard programatically
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
