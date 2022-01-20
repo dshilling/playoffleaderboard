@@ -9,7 +9,7 @@ import Foundation
 
 class LeagueLeaderboard: ObservableObject {
     
-    var franchises: [LeaderboardFranchise]
+    @Published var franchises = [LeaderboardFranchise]()
     
     // Construct an empty leaderboard to initialize UI
     init() {

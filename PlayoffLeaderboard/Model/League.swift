@@ -11,9 +11,9 @@ import Foundation
 class MyLeagues: ObservableObject {
     
     // All leagues for this user
-    var leagues: Leagues
+    @Published var leagues: Leagues
     
-    var league: League?
+    @Published var league: League?
     
     init() {
         leagues = Leagues()

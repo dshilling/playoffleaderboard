@@ -44,18 +44,7 @@ struct LeagueView: View {
             .blur(radius: isLoading ? 2 : 0)
             // Refresh action when pulling list
             .refreshable {
-                self.leagueLeaderboard.franchises = [LeaderboardFranchise]()
-                // Success completion
-                let onSuccess = {
-                    // scoringObj passed by reference and updated
-                    //self.leagueLeaderboard.franchises = LeagueLeaderboard(scoringObj: self.scoringObj).franchises
-                }
-                // Error completion
-                let onFailure = {}
-                MflController.apiGetScoring(forLeague: self.activeLeague,
-                                                   intoObject: self.scoringObj,
-                                                   onSuccess: onSuccess,
-                                                   onFailure: onFailure)
+                self.refreshLeaderboard()
             }
             
             // Loading HUD
@@ -70,6 +59,7 @@ struct LeagueView: View {
         }
     }
     
+    // First-time load shows progress HUD over the screen
     func loadLeaderboard() {
         self.isLoading = true
         // Success completion
@@ -82,6 +72,21 @@ struct LeagueView: View {
         let onFailure = {
             self.isLoading = false
         }
+        MflController.apiGetScoring(forLeague: self.activeLeague,
+                                           intoObject: self.scoringObj,
+                                           onSuccess: onSuccess,
+                                           onFailure: onFailure)
+    }
+    
+    // Refreshing after first-time load does not display progress HUD over the screen
+    func refreshLeaderboard() {
+        // Success completion
+        let onSuccess = {
+            // scoringObj passed by reference and updated
+            self.leagueLeaderboard.franchises = LeagueLeaderboard(scoringObj: self.scoringObj).franchises
+        }
+        // Error completion
+        let onFailure = {}
         MflController.apiGetScoring(forLeague: self.activeLeague,
                                            intoObject: self.scoringObj,
                                            onSuccess: onSuccess,
