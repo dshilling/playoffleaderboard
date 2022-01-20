@@ -16,10 +16,9 @@ struct LeagueDetails: Codable {
     var id: String
     var name: String
     var baseURL: String
-    var franchise: Franchises
+    var franchise: [Franchise]
 }
 
-typealias Franchises = [Franchise]
 struct Franchise: Codable {
     var id: String
     var name: String
