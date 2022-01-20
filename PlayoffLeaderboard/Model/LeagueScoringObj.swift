@@ -7,8 +7,8 @@
 
 import Foundation
 
-// Observable class for managing application state
-class LeagueScoringObj: ObservableObject {
+// Container for coalescing API responses needed to build a LeagueLeaderboard
+class LeagueScoringObj {
     
     // MFL status containing current year and week data
     var mflStatus: MflStatus

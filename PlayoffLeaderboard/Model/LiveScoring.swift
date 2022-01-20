@@ -31,6 +31,14 @@ struct LiveScoringFranchise: Codable, Hashable {
     var playersYetToPlay: String            // "8"
     var gameSecondsRemaining: String        // "28800"
     var players: LiveScoringPlayers
+    init() {
+        id = ""
+        score = ""
+        playersCurrentlyPlaying = ""
+        playersYetToPlay = ""
+        gameSecondsRemaining = ""
+        players = LiveScoringPlayers()
+    }
     static func == (lhs: LiveScoringFranchise, rhs: LiveScoringFranchise) -> Bool {
         return lhs.id == rhs.id && lhs.score == rhs.score && lhs.gameSecondsRemaining == rhs.gameSecondsRemaining
     }
@@ -41,6 +49,9 @@ struct LiveScoringFranchise: Codable, Hashable {
 
 struct LiveScoringPlayers: Codable {
     var player: [LiveScoringPlayer]
+    init() {
+        player = [LiveScoringPlayer]()
+    }
 }
 
 struct LiveScoringPlayer: Codable {
@@ -49,4 +60,11 @@ struct LiveScoringPlayer: Codable {
     var status: String                      // "starter"
     var updatedStats: String                // ""
     var gameSecondsRemaining: String        // "3600"
+    init() {
+        id = ""
+        score = ""
+        status = ""
+        updatedStats = ""
+        gameSecondsRemaining = ""
+    }
 }

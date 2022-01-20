@@ -12,10 +12,11 @@ struct LeagueView: View {
     
     // Active league for this page
     var activeLeague: League
+    var scoringObj = LeagueScoringObj()
     
     // State variables
     @State private var isLoading: Bool = false
-    @StateObject var scoringObj = LeagueScoringObj()
+    @StateObject var leagueLeaderboard = LeagueLeaderboard()
     
     init(withLeague: League) {
         self.activeLeague = withLeague
@@ -25,22 +26,9 @@ struct LeagueView: View {
         ZStack(alignment: .center) {
             VStack {
                 // TODO: Complete This Section
-                /*
-                Text("Year:" + scoringObj.mflStatus.year)
-                Text("Live Week:" + scoringObj.mflStatus.weeks.LiveScoringWeek)
-                Text("Completed Week:" + scoringObj.mflStatus.weeks.CompletedWeek)
-                */
-                Text("Teams:")
-                ForEach(scoringObj.leagueDetails.franchises.franchise, id:\.self) {franchise in
-                    Text(franchise.id + ", " + franchise.name)
-                }
-                Text("Scores:").padding(.top, 20)
-                ForEach(scoringObj.leagueStandings.franchise, id:\.self) {franchise in
-                    Text(franchise.id + ", " + franchise.pf)
-                }
-                Text("Live Scores:").padding(.top, 20)
-                ForEach(scoringObj.liveScoring.franchise, id:\.self) {franchise in
-                    Text(franchise.id + ", " + franchise.score + ", " + franchise.gameSecondsRemaining)
+                Text("Leaderboard:")
+                ForEach(leagueLeaderboard.franchises, id:\.self) {franchise in
+                    Text(franchise.name + ", " + String(format: "%.2f", franchise.totalScore))
                 }
             }
             .foregroundColor(Color("AppNavy"))
@@ -60,6 +48,7 @@ struct LeagueView: View {
             // Success completion
             let onSuccess = {
                 // scoringObj passed by reference and updated
+                self.leagueLeaderboard.franchises = LeagueLeaderboard(scoringObj: self.scoringObj).franchises
                 self.isLoading = false
             }
             // Error completion
