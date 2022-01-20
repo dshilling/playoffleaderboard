@@ -24,15 +24,22 @@ struct LeagueView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
-            VStack {
-                // TODO: Complete This Section
-                Text("Leaderboard:")
-                ForEach(leagueLeaderboard.franchises, id:\.self) {franchise in
-                    Text(franchise.name + ", " + String(format: "%.2f", franchise.totalScore))
+            List {
+                Section {
+                    if leagueLeaderboard.franchises.count > 0 {
+                        ForEach(0 ..< leagueLeaderboard.franchises.count) { index in
+                            let franchise = leagueLeaderboard.franchises[index]
+                            let franchiseLabel = franchise.name + ", " + String(format: "%.2f", franchise.totalScore)
+                            Label(franchiseLabel, systemImage: "\(index+1).circle.fill" )
+                                .font(.title3)
+                        }
+                    }
+                } header: {
+                    Text("Leaderboard")
                 }
             }
+            .listStyle(.grouped)
             .foregroundColor(Color("AppNavy"))
-            .padding()
             .disabled(isLoading)
             .blur(radius: isLoading ? 2 : 0)
             
