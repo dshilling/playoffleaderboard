@@ -38,7 +38,6 @@ class LeagueLeaderboard: ObservableObject {
             newTeam.id = franchise.id
             newTeam.name = teamDictionary[franchise.id] ?? ""
             newTeam.totalScore = Double(franchise.pf) ?? 0.0
-            newTeam.totalScore += Date().timeIntervalSince1970
             newTeam.liveScoring = liveScoringDictionary[franchise.id] ?? LiveScoringFranchise()
             // Add live scoring totals if current live scoring week is after most recently completed week
             if (scoringObj.mflStatus.weeks.CompletedWeek != scoringObj.mflStatus.weeks.LiveScoringWeek) {
