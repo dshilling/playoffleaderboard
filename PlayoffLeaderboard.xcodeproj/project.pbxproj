@@ -21,6 +21,7 @@
 		9365243A2796857900380BE4 /* LeaguesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524392796857900380BE4 /* LeaguesView.swift */; };
 		9365243C2797D1FA00380BE4 /* LeagueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9365243B2797D1FA00380BE4 /* LeagueView.swift */; };
 		936524412798DE4600380BE4 /* LoadingDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524402798DE4600380BE4 /* LoadingDialogView.swift */; };
+		936524432798E33400380BE4 /* LeagueDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524422798E33400380BE4 /* LeagueDetails.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		936524392796857900380BE4 /* LeaguesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaguesView.swift; sourceTree = "<group>"; };
 		9365243B2797D1FA00380BE4 /* LeagueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueView.swift; sourceTree = "<group>"; };
 		936524402798DE4600380BE4 /* LoadingDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDialogView.swift; sourceTree = "<group>"; };
+		936524422798E33400380BE4 /* LeagueDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				936524322796739E00380BE4 /* League.swift */,
+				936524422798E33400380BE4 /* LeagueDetails.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				93652406279501D500380BE4 /* LoginView.swift in Sources */,
 				9365243A2796857900380BE4 /* LeaguesView.swift in Sources */,
 				936524332796739E00380BE4 /* League.swift in Sources */,
+				936524432798E33400380BE4 /* LeagueDetails.swift in Sources */,
 				936524412798DE4600380BE4 /* LoadingDialogView.swift in Sources */,
 				93652404279501D500380BE4 /* PlayoffLeaderboardApp.swift in Sources */,
 			);
