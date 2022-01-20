@@ -142,7 +142,6 @@ class MflController {
                                               onSuccess: @escaping () -> Void,
                                               onFailure: @escaping () -> Void)
     {
-        // Begin by fetching league details
         MflService.exportLeagueStandings(leagueBaseUrl: getBaseUrl(forLeague: forLeague), leagueId: forLeague.leagueId)
         {data, response, error in
             // Check for errors
@@ -157,16 +156,51 @@ class MflController {
                       return
             }
             // Handle success
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            do {
+                let decodedData = try decoder.decode(LeagueStandingsResponse.self, from: data)
+                toLeaderboard.leagueStandings = decodedData.leagueStandings
+                print("League Standings: Successfully fetched standings for", decodedData.leagueStandings.franchise.count, "franchises")
+                // Continue to next request
+                apiUpdateLeaderboardScoring(forLeague: forLeague, toLeaderboard: toLeaderboard, onSuccess: onSuccess, onFailure: onFailure)
+            } catch {
+                print("League Standings: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
+                onFailure()
+            }
+        }
+    }
+    
+    // Continue leaderboard request by fetching liveScoring next
+    static func apiUpdateLeaderboardScoring(forLeague: League,
+                                            toLeaderboard: LeagueLeaderboard,
+                                            onSuccess: @escaping () -> Void,
+                                            onFailure: @escaping () -> Void)
+    {
+        MflService.exportLiveScoring(leagueBaseUrl: getBaseUrl(forLeague: forLeague), leagueId: forLeague.leagueId)
+        {data, response, error in
+            // Check for errors
+            guard let data = data,
+                  let response = response,
+                  error == nil,
+                  (response as! HTTPURLResponse).statusCode == 200 else {
+                      print("Live Scoring: error response from the server")
+                      DispatchQueue.main.async {
+                          onFailure()
+                      }
+                      return
+            }
+            // Handle success
             DispatchQueue.main.async {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 do {
-                    let decodedData = try decoder.decode(LeagueStandingsResponse.self, from: data)
-                    toLeaderboard.leagueStandings = decodedData.leagueStandings
-                    print("League Standings: Successfully fetched standings for", decodedData.leagueStandings.franchise.count, "franchises")
+                    let decodedData = try decoder.decode(LiveScoringResponse.self, from: data)
+                    toLeaderboard.liveScoring = decodedData.liveScoring
+                    print("Live Scoring: Successfully fetched standings for", decodedData.liveScoring.franchise.count, "franchises")
                     onSuccess()
                 } catch {
-                    print("League Standings: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
+                    print("Live Scoring: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
                     onFailure()
                 }
             }

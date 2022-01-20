@@ -29,9 +29,13 @@ struct LeagueView: View {
                 ForEach((leaderboard.leagueDetails?.franchises.franchise)!, id:\.self) {franchise in
                     Text(franchise.id + ", " + franchise.name)
                 }
-                Text("Teams:")
+                Text("Scores:").padding(.top, 20)
                 ForEach((leaderboard.leagueStandings?.franchise)!, id:\.self) {franchise in
                     Text(franchise.id + ", " + franchise.pf)
+                }
+                Text("Live Scores:").padding(.top, 20)
+                ForEach((leaderboard.liveScoring?.franchise)!, id:\.self) {franchise in
+                    Text(franchise.id + ", " + franchise.score + ", " + franchise.gameSecondsRemaining)
                 }
             }
             .foregroundColor(Color("AppNavy"))

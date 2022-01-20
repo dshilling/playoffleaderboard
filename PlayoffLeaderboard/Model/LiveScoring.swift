@@ -21,13 +21,19 @@ struct LiveScoring: Codable {
     }
 }
 
-struct LiveScoringFranchise: Codable {
+struct LiveScoringFranchise: Codable, Hashable {
     var id: String                          // "0001"
     var score: String                       // "0.00"
     var playersCurrentlyPlaying: String     // "0"
     var playersYetToPlay: String            // "8"
     var gameSecondsRemaining: String        // "28800"
     var players: LiveScoringPlayers
+    static func == (lhs: LiveScoringFranchise, rhs: LiveScoringFranchise) -> Bool {
+        return lhs.id == rhs.id && lhs.score == rhs.score && lhs.gameSecondsRemaining == rhs.gameSecondsRemaining
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id+score+gameSecondsRemaining)
+    }
 }
 
 struct LiveScoringPlayers: Codable {
