@@ -23,6 +23,7 @@
 		936524412798DE4600380BE4 /* LoadingDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524402798DE4600380BE4 /* LoadingDialogView.swift */; };
 		936524432798E33400380BE4 /* LeagueDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524422798E33400380BE4 /* LeagueDetails.swift */; };
 		936524452798F38800380BE4 /* LeagueStandings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524442798F38800380BE4 /* LeagueStandings.swift */; };
+		936524472798F63500380BE4 /* LiveScoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524462798F63500380BE4 /* LiveScoring.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		936524402798DE4600380BE4 /* LoadingDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDialogView.swift; sourceTree = "<group>"; };
 		936524422798E33400380BE4 /* LeagueDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetails.swift; sourceTree = "<group>"; };
 		936524442798F38800380BE4 /* LeagueStandings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueStandings.swift; sourceTree = "<group>"; };
+		936524462798F63500380BE4 /* LiveScoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveScoring.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 				936524322796739E00380BE4 /* League.swift */,
 				936524422798E33400380BE4 /* LeagueDetails.swift */,
 				936524442798F38800380BE4 /* LeagueStandings.swift */,
+				936524462798F63500380BE4 /* LiveScoring.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93652430279523F300380BE4 /* MflService.swift in Sources */,
+				936524472798F63500380BE4 /* LiveScoring.swift in Sources */,
 				9365243C2797D1FA00380BE4 /* LeagueView.swift in Sources */,
 				936524352796822E00380BE4 /* ContentView.swift in Sources */,
 				936524382796847C00380BE4 /* MflController.swift in Sources */,

@@ -16,6 +16,9 @@ class LeagueLeaderboard: ObservableObject {
     // Standings of selected league after most recently completed week
     var leagueStandings: LeagueStandings?
     
+    // Live scoring for selected league in the current week
+    var liveScoring: LiveScoring?
+    
     init() {}
     
 }
