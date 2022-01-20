@@ -90,10 +90,10 @@ class MflController {
         }
     }
     
-    static func apiUpdateLeaderboard(forLeague: League,
-                                     toLeaderboard: LeagueLeaderboard,
-                                     onSuccess: @escaping () -> Void,
-                                     onFailure: @escaping () -> Void) {
+    static func apiGetScoring(forLeague: League,
+                              intoObject: LeagueScoringObj,
+                              onSuccess: @escaping () -> Void,
+                              onFailure: @escaping () -> Void) {
         // Begin by fetching MFL status to get current year and week data
         MflService.getMflStatus()
         {data, response, error in
@@ -113,10 +113,10 @@ class MflController {
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             do {
                 let decodedData = try decoder.decode(MflStatusResponse.self, from: data)
-                toLeaderboard.mflStatus = decodedData.mflStatus
+                intoObject.mflStatus = decodedData.mflStatus
                 print("API Status: Successfully fetched API status")
                 // Continue to next request
-                apiUpdateLeaderboardLeague(forLeague: forLeague, toLeaderboard: toLeaderboard, onSuccess: onSuccess, onFailure: onFailure)
+                apiGetScoringLeague(forLeague: forLeague, intoObject: intoObject, onSuccess: onSuccess, onFailure: onFailure)
             } catch {
                 print("API Status: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
                 onFailure()
@@ -133,11 +133,11 @@ class MflController {
         return forLeague.url.components(separatedBy: "home")[0]
     }
     
-    // Continue leaderboard request by fetching league next
-    static func apiUpdateLeaderboardLeague(forLeague: League,
-                                           toLeaderboard: LeagueLeaderboard,
-                                           onSuccess: @escaping () -> Void,
-                                           onFailure: @escaping () -> Void) {
+    // Continue scoring request by fetching league next
+    static func apiGetScoringLeague(forLeague: League,
+                                    intoObject: LeagueScoringObj,
+                                    onSuccess: @escaping () -> Void,
+                                    onFailure: @escaping () -> Void) {
         // Begin by fetching league details
         MflService.exportLeague(leagueBaseUrl: getBaseUrl(forLeague: forLeague), leagueId: forLeague.leagueId)
         {data, response, error in
@@ -157,10 +157,10 @@ class MflController {
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             do {
                 let decodedData = try decoder.decode(LeagueDetailsResponse.self, from: data)
-                toLeaderboard.leagueDetails = decodedData.league
+                intoObject.leagueDetails = decodedData.league
                 print("League: Successfully fetched league details for league", decodedData.league.id)
                 // Continue to next request
-                apiUpdateLeaderboardStandings(forLeague: forLeague, toLeaderboard: toLeaderboard, onSuccess: onSuccess, onFailure: onFailure)
+                apiGetScoringStandings(forLeague: forLeague, intoObject: intoObject, onSuccess: onSuccess, onFailure: onFailure)
             } catch {
                 print("League: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
                 onFailure()
@@ -168,11 +168,11 @@ class MflController {
         }
     }
     
-    // Continue leaderboard request by fetching leagueStandings next
-    static func apiUpdateLeaderboardStandings(forLeague: League,
-                                              toLeaderboard: LeagueLeaderboard,
-                                              onSuccess: @escaping () -> Void,
-                                              onFailure: @escaping () -> Void)
+    // Continue scoring request by fetching leagueStandings next
+    static func apiGetScoringStandings(forLeague: League,
+                                       intoObject: LeagueScoringObj,
+                                       onSuccess: @escaping () -> Void,
+                                       onFailure: @escaping () -> Void)
     {
         MflService.exportLeagueStandings(leagueBaseUrl: getBaseUrl(forLeague: forLeague), leagueId: forLeague.leagueId)
         {data, response, error in
@@ -192,10 +192,10 @@ class MflController {
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             do {
                 let decodedData = try decoder.decode(LeagueStandingsResponse.self, from: data)
-                toLeaderboard.leagueStandings = decodedData.leagueStandings
+                intoObject.leagueStandings = decodedData.leagueStandings
                 print("League Standings: Successfully fetched standings for", decodedData.leagueStandings.franchise.count, "franchises")
                 // Continue to next request
-                apiUpdateLeaderboardScoring(forLeague: forLeague, toLeaderboard: toLeaderboard, onSuccess: onSuccess, onFailure: onFailure)
+                apiGetScoringLive(forLeague: forLeague, intoObject: intoObject, onSuccess: onSuccess, onFailure: onFailure)
             } catch {
                 print("League Standings: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
                 onFailure()
@@ -203,11 +203,11 @@ class MflController {
         }
     }
     
-    // Continue leaderboard request by fetching liveScoring next
-    static func apiUpdateLeaderboardScoring(forLeague: League,
-                                            toLeaderboard: LeagueLeaderboard,
-                                            onSuccess: @escaping () -> Void,
-                                            onFailure: @escaping () -> Void)
+    // Continue scoring request by fetching liveScoring next
+    static func apiGetScoringLive(forLeague: League,
+                                  intoObject: LeagueScoringObj,
+                                  onSuccess: @escaping () -> Void,
+                                  onFailure: @escaping () -> Void)
     {
         MflService.exportLiveScoring(leagueBaseUrl: getBaseUrl(forLeague: forLeague), leagueId: forLeague.leagueId)
         {data, response, error in
@@ -228,7 +228,7 @@ class MflController {
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 do {
                     let decodedData = try decoder.decode(LiveScoringResponse.self, from: data)
-                    toLeaderboard.liveScoring = decodedData.liveScoring
+                    intoObject.liveScoring = decodedData.liveScoring
                     print("Live Scoring: Successfully fetched standings for", decodedData.liveScoring.franchise.count, "franchises")
                     onSuccess()
                 } catch {
