@@ -22,6 +22,7 @@
 		9365243C2797D1FA00380BE4 /* LeagueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9365243B2797D1FA00380BE4 /* LeagueView.swift */; };
 		936524412798DE4600380BE4 /* LoadingDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524402798DE4600380BE4 /* LoadingDialogView.swift */; };
 		936524432798E33400380BE4 /* LeagueDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524422798E33400380BE4 /* LeagueDetails.swift */; };
+		936524452798F38800380BE4 /* LeagueStandings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936524442798F38800380BE4 /* LeagueStandings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		9365243B2797D1FA00380BE4 /* LeagueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueView.swift; sourceTree = "<group>"; };
 		936524402798DE4600380BE4 /* LoadingDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDialogView.swift; sourceTree = "<group>"; };
 		936524422798E33400380BE4 /* LeagueDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetails.swift; sourceTree = "<group>"; };
+		936524442798F38800380BE4 /* LeagueStandings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueStandings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 			children = (
 				936524322796739E00380BE4 /* League.swift */,
 				936524422798E33400380BE4 /* LeagueDetails.swift */,
+				936524442798F38800380BE4 /* LeagueStandings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				936524332796739E00380BE4 /* League.swift in Sources */,
 				936524432798E33400380BE4 /* LeagueDetails.swift in Sources */,
 				936524412798DE4600380BE4 /* LoadingDialogView.swift in Sources */,
+				936524452798F38800380BE4 /* LeagueStandings.swift in Sources */,
 				93652404279501D500380BE4 /* PlayoffLeaderboardApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
