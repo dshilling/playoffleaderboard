@@ -13,6 +13,7 @@ class MflService {
     static let baseUrl = "https://api.myfantasyleague.com/2021/"
     
     // POST /login
+    // https://api.myfantasyleague.com/2021/api_info?STATE=test&CCAT=misc&TYPE=login
     static func postLogin(username: String,
                    password: String,
                    completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
@@ -29,12 +30,43 @@ class MflService {
     }
     
     // EXPORT myleagues
+    // https://api.myfantasyleague.com/2021/api_info?STATE=test&CCAT=export&TYPE=myleagues
     static func exportMyLeagues(completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        // Request
-        let url = URL(string: baseUrl + "export?TYPE=myleagues&YEAR=2021&FRANCHISE_NAMES=1&JSON=1")!
+        let url = baseUrl + "export?TYPE=myleagues&YEAR=2021&FRANCHISE_NAMES=1&JSON=1"
+        exportRequest(urlStr: url, completion: completion)
+    }
+    
+    // EXPORT league
+    // https://api.myfantasyleague.com/2021/api_info?STATE=test&CCAT=export&TYPE=league
+    static func exportLeague(host: String, leagueId: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        exportLeagueProperty(host: host, leagueId: leagueId, leagueProperty: "league", completion: completion)
+    }
+    
+    // EXPORT leagueStandings
+    // https://api.myfantasyleague.com/2021/api_info?STATE=test&CCAT=export&TYPE=leagueStandings
+    static func exportLeagueStandings(host: String, leagueId: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        exportLeagueProperty(host: host, leagueId: leagueId, leagueProperty: "leagueStandings", completion: completion)
+    }
+    
+    // EXPORT liveScoring
+    // https://api.myfantasyleague.com/2021/api_info?STATE=test&CCAT=export&TYPE=liveScoring
+    static func exportLiveScoring(host: String, leagueId: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        exportLeagueProperty(host: host, leagueId: leagueId, leagueProperty: "liveScoring", completion: completion)
+    }
+    
+// MARK: - Private methods
+    
+    static private func exportLeagueProperty(host: String, leagueId: String, leagueProperty: String,
+                                             completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        let leagueBaseUrl = baseUrl.replacingOccurrences(of: "api", with: host)
+        let url = leagueBaseUrl + "export?TYPE=" + leagueProperty + "&L=" + leagueId + "&JSON=1"
+        exportRequest(urlStr: url, completion: completion)
+    }
+    
+    static private func exportRequest(urlStr: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        let url = URL(string: urlStr)!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        // Session
         let task = URLSession.shared.dataTask(with: request, completionHandler: completion)
         task.resume()
     }

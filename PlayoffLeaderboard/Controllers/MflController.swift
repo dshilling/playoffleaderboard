@@ -91,5 +91,11 @@ class MflController {
             }
         }
     }
+    
+    static func apiUpdateLeaderboard(onSuccess: @escaping () -> Void,
+                                     onFailure: @escaping () -> Void)
+    {
+        // TODO: Complete this
+    }
 
 }

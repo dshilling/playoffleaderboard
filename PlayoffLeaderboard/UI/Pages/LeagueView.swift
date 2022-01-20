@@ -11,13 +11,14 @@ import SwiftUI
 struct LeagueView: View {
     
     // Environment Objects
-    var league: League
+    var leagueId: String
     
     // State variables
     @State private var isLoading: Bool = false
+    @StateObject var leaderboard = LeagueLeaderboard()
     
-    init(withLeague: League) {
-        league = withLeague
+    init(withLeagueId: String) {
+        leagueId = withLeagueId
     }
     
     var body: some View {
@@ -35,8 +36,21 @@ struct LeagueView: View {
                 LoadingDialogView()
             }
         }
-        .navigationTitle(league.name)
+        .navigationTitle(leagueId)
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            self.isLoading = true
+            // Success completion
+            let onSuccess = {
+                // leaderboard passed by reference and updated
+                self.isLoading = false
+            }
+            // Error completion
+            let onFailure = {
+                self.isLoading = false
+            }
+            MflController.apiUpdateLeaderboard(onSuccess: onSuccess, onFailure: onFailure)
+        }
     }
     
 }
