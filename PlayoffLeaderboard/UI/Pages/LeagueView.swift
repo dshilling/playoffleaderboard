@@ -42,6 +42,21 @@ struct LeagueView: View {
             .foregroundColor(Color("AppNavy"))
             .disabled(isLoading)
             .blur(radius: isLoading ? 2 : 0)
+            // Refresh action when pulling list
+            .refreshable {
+                self.leagueLeaderboard.franchises = [LeaderboardFranchise]()
+                // Success completion
+                let onSuccess = {
+                    // scoringObj passed by reference and updated
+                    //self.leagueLeaderboard.franchises = LeagueLeaderboard(scoringObj: self.scoringObj).franchises
+                }
+                // Error completion
+                let onFailure = {}
+                MflController.apiGetScoring(forLeague: self.activeLeague,
+                                                   intoObject: self.scoringObj,
+                                                   onSuccess: onSuccess,
+                                                   onFailure: onFailure)
+            }
             
             // Loading HUD
             if isLoading {
@@ -51,22 +66,26 @@ struct LeagueView: View {
         .navigationTitle(self.activeLeague.name)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            self.isLoading = true
-            // Success completion
-            let onSuccess = {
-                // scoringObj passed by reference and updated
-                self.leagueLeaderboard.franchises = LeagueLeaderboard(scoringObj: self.scoringObj).franchises
-                self.isLoading = false
-            }
-            // Error completion
-            let onFailure = {
-                self.isLoading = false
-            }
-            MflController.apiGetScoring(forLeague: self.activeLeague,
-                                               intoObject: self.scoringObj,
-                                               onSuccess: onSuccess,
-                                               onFailure: onFailure)
+            self.loadLeaderboard()
         }
+    }
+    
+    func loadLeaderboard() {
+        self.isLoading = true
+        // Success completion
+        let onSuccess = {
+            // scoringObj passed by reference and updated
+            self.leagueLeaderboard.franchises = LeagueLeaderboard(scoringObj: self.scoringObj).franchises
+            self.isLoading = false
+        }
+        // Error completion
+        let onFailure = {
+            self.isLoading = false
+        }
+        MflController.apiGetScoring(forLeague: self.activeLeague,
+                                           intoObject: self.scoringObj,
+                                           onSuccess: onSuccess,
+                                           onFailure: onFailure)
     }
     
 }
