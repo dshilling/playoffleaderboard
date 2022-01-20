@@ -19,7 +19,11 @@ class LeagueLeaderboard: ObservableObject {
     // Live scoring for selected league in the current week
     var liveScoring: LiveScoring?
     
-    init() {}
+    init() {
+        leagueDetails = LeagueDetails()
+        leagueStandings = LeagueStandings()
+        liveScoring = LiveScoring()
+    }
     
 }
 
@@ -32,10 +36,26 @@ struct LeagueDetails: Codable {
     var id: String
     var name: String
     var baseURL: String
-    var franchise: [Franchise]
+    var franchises: Franchises
+    init () {
+        id = ""
+        name = ""
+        baseURL = ""
+        franchises = Franchises()
+    }
 }
 
-struct Franchise: Codable {
+struct Franchises: Codable {
+    var franchise: [Franchise]
+    init() {
+        franchise = [Franchise]()
+    }
+}
+
+struct Franchise: Codable, Hashable {
     var id: String
     var name: String
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }

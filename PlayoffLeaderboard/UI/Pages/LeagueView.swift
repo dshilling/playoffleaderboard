@@ -10,21 +10,24 @@ import SwiftUI
 
 struct LeagueView: View {
     
-    // Environment Objects
-    var leagueId: String
+    // Active league for this page
+    var activeLeague: League
     
     // State variables
     @State private var isLoading: Bool = false
     @StateObject var leaderboard = LeagueLeaderboard()
     
-    init(withLeagueId: String) {
-        leagueId = withLeagueId
+    init(withLeague: League) {
+        self.activeLeague = withLeague
     }
     
     var body: some View {
         ZStack(alignment: .center) {
             VStack {
                 Text("League leaderboard will go here.")
+                ForEach((leaderboard.leagueDetails?.franchises.franchise)!, id:\.self) {franchise in
+                    Text(franchise.id + ", " + franchise.name)
+                }
             }
             .foregroundColor(Color("AppNavy"))
             .padding()
@@ -36,7 +39,7 @@ struct LeagueView: View {
                 LoadingDialogView()
             }
         }
-        .navigationTitle(leagueId)
+        .navigationTitle(self.activeLeague.name)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             self.isLoading = true
@@ -49,7 +52,10 @@ struct LeagueView: View {
             let onFailure = {
                 self.isLoading = false
             }
-            MflController.apiUpdateLeaderboard(onSuccess: onSuccess, onFailure: onFailure)
+            MflController.apiUpdateLeaderboard(forLeague: self.activeLeague,
+                                               toLeaderboard: self.leaderboard,
+                                               onSuccess: onSuccess,
+                                               onFailure: onFailure)
         }
     }
     

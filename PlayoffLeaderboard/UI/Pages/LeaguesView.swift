@@ -22,7 +22,7 @@ struct LeaguesView: View {
                 if myLeagues.leagues.count > 0 {
                     ForEach(0 ..< myLeagues.leagues.count) { index in
                         let league = myLeagues.leagues[index]
-                        NavigationLink(destination: LeagueView(withLeagueId: league.leagueId)) {
+                        NavigationLink(destination: LeagueView(withLeague: league)) {
                             Label(league.name, systemImage: "arrow.right.circle.fill" )
                                 .font(.title3)
                         }

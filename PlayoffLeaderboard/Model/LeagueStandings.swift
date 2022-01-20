@@ -14,6 +14,9 @@ struct LeagueStandingsResponse: Codable {
 
 struct LeagueStandings: Codable {
     var franchise: [LeagueStandingsFranchise]
+    init () {
+        franchise = [LeagueStandingsFranchise]()
+    }
 }
 
 struct LeagueStandingsFranchise: Codable {

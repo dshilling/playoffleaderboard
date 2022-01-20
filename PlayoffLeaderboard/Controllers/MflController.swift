@@ -92,10 +92,49 @@ class MflController {
         }
     }
     
-    static func apiUpdateLeaderboard(onSuccess: @escaping () -> Void,
+    static func apiUpdateLeaderboard(forLeague: League,
+                                     toLeaderboard: LeagueLeaderboard,
+                                     onSuccess: @escaping () -> Void,
                                      onFailure: @escaping () -> Void)
     {
-        // TODO: Complete this
+        // Begin by fetching league details
+        MflService.exportLeague(leagueBaseUrl: getBaseUrl(forLeague: forLeague), leagueId: forLeague.leagueId)
+        {data, response, error in
+            // Check for errors
+            guard let data = data,
+                  let response = response,
+                  error == nil,
+                  (response as! HTTPURLResponse).statusCode == 200 else {
+                      print("League: error response from the server")
+                      DispatchQueue.main.async {
+                          onFailure()
+                      }
+                      return
+            }
+            // Handle success
+            DispatchQueue.main.async {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                do {
+                    let decodedData = try decoder.decode(LeagueDetailsResponse.self, from: data)
+                    toLeaderboard.leagueDetails = decodedData.league
+                    print("League: Successfully fetched league details for league", decodedData.league.id)
+                    onSuccess()
+                } catch {
+                    print("League: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
+                    onFailure()
+                }
+            }
+        }
     }
 
+    
+// MARK: - Private helper methods
+    
+    // Truncate the URL returned by the myLeagues API to just the api base
+    private static func getBaseUrl(forLeague: League) -> String {
+        // "https://www69.myfantasyleague.com/2021/home/51911"
+        return forLeague.url.components(separatedBy: "home")[0]
+    }
+    
 }

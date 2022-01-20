@@ -38,27 +38,26 @@ class MflService {
     
     // EXPORT league
     // https://api.myfantasyleague.com/2021/api_info?STATE=test&CCAT=export&TYPE=league
-    static func exportLeague(host: String, leagueId: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        exportLeagueProperty(host: host, leagueId: leagueId, leagueProperty: "league", completion: completion)
+    static func exportLeague(leagueBaseUrl: String, leagueId: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        exportLeagueProperty(leagueBaseUrl: leagueBaseUrl, leagueId: leagueId, leagueProperty: "league", completion: completion)
     }
     
     // EXPORT leagueStandings
     // https://api.myfantasyleague.com/2021/api_info?STATE=test&CCAT=export&TYPE=leagueStandings
-    static func exportLeagueStandings(host: String, leagueId: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        exportLeagueProperty(host: host, leagueId: leagueId, leagueProperty: "leagueStandings", completion: completion)
+    static func exportLeagueStandings(leagueBaseUrl: String, leagueId: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        exportLeagueProperty(leagueBaseUrl: leagueBaseUrl, leagueId: leagueId, leagueProperty: "leagueStandings", completion: completion)
     }
     
     // EXPORT liveScoring
     // https://api.myfantasyleague.com/2021/api_info?STATE=test&CCAT=export&TYPE=liveScoring
-    static func exportLiveScoring(host: String, leagueId: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        exportLeagueProperty(host: host, leagueId: leagueId, leagueProperty: "liveScoring", completion: completion)
+    static func exportLiveScoring(leagueBaseUrl: String, leagueId: String, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        exportLeagueProperty(leagueBaseUrl: leagueBaseUrl, leagueId: leagueId, leagueProperty: "liveScoring", completion: completion)
     }
     
 // MARK: - Private methods
     
-    static private func exportLeagueProperty(host: String, leagueId: String, leagueProperty: String,
+    static private func exportLeagueProperty(leagueBaseUrl: String, leagueId: String, leagueProperty: String,
                                              completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        let leagueBaseUrl = baseUrl.replacingOccurrences(of: "api", with: host)
         let url = leagueBaseUrl + "export?TYPE=" + leagueProperty + "&L=" + leagueId + "&JSON=1"
         exportRequest(urlStr: url, completion: completion)
     }

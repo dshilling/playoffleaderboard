@@ -15,6 +15,10 @@ struct LiveScoringResponse: Codable {
 struct LiveScoring: Codable {
     var week: String
     var franchise: [LiveScoringFranchise]
+    init () {
+        week = ""
+        franchise = []
+    }
 }
 
 struct LiveScoringFranchise: Codable {
