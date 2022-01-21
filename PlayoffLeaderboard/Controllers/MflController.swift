@@ -81,10 +81,14 @@ class MflController {
                     var myLeagues = Leagues()
                     myLeagues = leaguesObj.leagues.league
                     print("Leagues: Successfully fetched", myLeagues.count, "leagues for user")
-                    onSuccess(myLeagues)
+                    DispatchQueue.main.async {
+                        onSuccess(myLeagues)
+                    }
                 } catch {
                     print("Leagues: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
-                    onFailure()
+                    DispatchQueue.main.async {
+                        onFailure()
+                    }
                 }
             }
         }
@@ -119,11 +123,12 @@ class MflController {
                 apiGetScoringLeague(forLeague: forLeague, intoObject: intoObject, onSuccess: onSuccess, onFailure: onFailure)
             } catch {
                 print("API Status: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
-                onFailure()
+                DispatchQueue.main.async {
+                    onFailure()
+                }
             }
         }
     }
-
     
 // MARK: - Private methods
     
@@ -163,7 +168,9 @@ class MflController {
                 apiGetScoringStandings(forLeague: forLeague, intoObject: intoObject, onSuccess: onSuccess, onFailure: onFailure)
             } catch {
                 print("League: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
-                onFailure()
+                DispatchQueue.main.async {
+                    onFailure()
+                }
             }
         }
     }
@@ -198,7 +205,9 @@ class MflController {
                 apiGetScoringLive(forLeague: forLeague, intoObject: intoObject, onSuccess: onSuccess, onFailure: onFailure)
             } catch {
                 print("League Standings: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
-                onFailure()
+                DispatchQueue.main.async {
+                    onFailure()
+                }
             }
         }
     }
@@ -230,11 +239,48 @@ class MflController {
                     let decodedData = try decoder.decode(LiveScoringResponse.self, from: data)
                     intoObject.liveScoring = decodedData.liveScoring
                     print("Live Scoring: Successfully fetched standings for", decodedData.liveScoring.franchise.count, "franchises")
-                    onSuccess()
+                    // Continue to next request
+                    localGetPlayers(intoObject: intoObject, onSuccess: onSuccess, onFailure: onFailure)
                 } catch {
                     print("Live Scoring: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
+                    DispatchQueue.main.async {
+                        onFailure()
+                    }
+                }
+            }
+        }
+    }
+    
+    // Continue scoring request by fetching players next
+    static func localGetPlayers(intoObject: LeagueScoringObj,
+                                onSuccess: @escaping () -> Void,
+                                onFailure: @escaping () -> Void) {
+        // TODO: This won't work next year when new players join the league, use api instead:
+        // export?TYPE=players&L=1234&JSON=1
+        do {
+            guard let path = Bundle.main.path(forResource: "players", ofType: "json") else {
+                print("Players: error loading local json file")
+                DispatchQueue.main.async {
                     onFailure()
                 }
+                return
+            }
+            let jsonData = try String(contentsOfFile: path).data(using: .utf8)
+            let decodedData = try JSONDecoder().decode(PlayersResponse.self, from: jsonData ?? Data())
+            // Build dictionary
+            var dict: [String:Player] = [:]
+            for player in decodedData.players.player {
+                dict[player.id] = player
+            }
+            intoObject.mflPlayers = dict
+            print("Players: Successfully fetched ", dict.count, "players")
+            DispatchQueue.main.async {
+                onSuccess()
+            }
+        } catch {
+            print("Players: JSON deserialization failed for local file")
+            DispatchQueue.main.async {
+                onFailure()
             }
         }
     }

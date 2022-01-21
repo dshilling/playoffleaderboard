@@ -13,6 +13,9 @@ class LeagueScoringObj {
     // MFL status containing current year and week data
     var mflStatus: MflStatus
     
+    // Latest players array from MFL
+    var mflPlayers: [String:Player]
+    
     // Selected league details obj
     var leagueDetails: LeagueDetails
     
@@ -24,6 +27,7 @@ class LeagueScoringObj {
     
     init() {
         mflStatus = MflStatus()
+        mflPlayers = [:]
         leagueDetails = LeagueDetails()
         leagueStandings = LeagueStandings()
         liveScoring = LiveScoring()
