@@ -23,8 +23,7 @@ struct LeaguesView: View {
                     ForEach(0 ..< myLeagues.leagues.count) { index in
                         let league = myLeagues.leagues[index]
                         NavigationLink(destination: LeagueView(withLeague: league)) {
-                            Label(league.name, systemImage: "arrow.right.circle.fill" )
-                                .font(.title3)
+                            LeagueTableCell(league: league)
                         }
                     }
                 }
@@ -54,6 +53,19 @@ struct LeaguesView: View {
     func logout() {
         MflController.apiLogout()
         self.presentationMode.wrappedValue.dismiss()
+    }
+    
+}
+
+struct LeagueTableCell: View {
+    
+    var league: League
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: nil) {
+            Image(systemName: "person.2.circle.fill")
+            Text(league.name)
+        }
     }
     
 }
