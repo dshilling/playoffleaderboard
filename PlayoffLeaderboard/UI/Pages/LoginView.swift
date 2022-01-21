@@ -23,6 +23,8 @@ struct LoginView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
+            GeometryReader { geometry in
+            ScrollView {
             VStack() {
                 HeadingText()
                 SubheadingText()
@@ -59,8 +61,12 @@ struct LoginView: View {
                 }
             }
             .padding()
+            .frame(width: geometry.size.width)
+            .frame(minHeight: geometry.size.height)
             .disabled(self.isLoading)
             .blur(radius: self.isLoading ? 2 : 0)
+            }
+            }
             
             // Loading HUD
             if self.isLoading {
