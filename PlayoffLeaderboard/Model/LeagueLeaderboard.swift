@@ -51,6 +51,13 @@ class LeagueLeaderboard: ObservableObject {
                     newTeam.playersRemaining += 1
                 }
             }
+            // Also fill in player data optional fields
+            for index in 0...newTeam.liveScoring.players.player.count-1 {
+                let playerData = scoringObj.mflPlayers[newTeam.liveScoring.players.player[index].id] ?? Player()
+                newTeam.liveScoring.players.player[index].name = playerData.name
+                newTeam.liveScoring.players.player[index].team = playerData.team
+                newTeam.liveScoring.players.player[index].position = playerData.position
+            }
             franchises.append(newTeam)
         }
         

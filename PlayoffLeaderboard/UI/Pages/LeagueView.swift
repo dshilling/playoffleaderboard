@@ -25,35 +25,38 @@ struct LeagueView: View {
     var body: some View {
         ZStack(alignment: .center) {
             GeometryReader { geometry in
-            VStack {
-            List {
-                Section {
-                    if leagueLeaderboard.franchises.count > 0 {
-                        ForEach(0 ..< leagueLeaderboard.franchises.count) { index in
-                            FranchiseTableCell(rank:index, franchise: leagueLeaderboard.franchises[index])
+                VStack {
+                    List {
+                        Section {
+                            if leagueLeaderboard.franchises.count > 0 {
+                                ForEach(0 ..< leagueLeaderboard.franchises.count) { index in
+                                    NavigationLink(destination: FranchiseView(withTeam: leagueLeaderboard.franchises[index].name,
+                                                                    forFranchise: leagueLeaderboard.franchises[index].liveScoring)) {
+                                        FranchiseTableCell(rank:index, franchise: leagueLeaderboard.franchises[index])
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Text("") // Placeholder
+                            }
+                        } header: {
+                            Text("Leaderboard")
                         }
                     }
-                    else
-                    {
-                        Text("") // Placeholder
+                    .listStyle(.grouped)
+                    .foregroundColor(Color("AppNavy"))
+                    .disabled(isLoading)
+                    .blur(radius: isLoading ? 2 : 0)
+                    // Refresh action when pulling list
+                    .refreshable {
+                        self.refreshLeaderboard()
                     }
-                } header: {
-                    Text("Leaderboard")
                 }
-            }
-            .listStyle(.grouped)
-            .foregroundColor(Color("AppNavy"))
-            .disabled(isLoading)
-            .blur(radius: isLoading ? 2 : 0)
-            // Refresh action when pulling list
-            .refreshable {
-                self.refreshLeaderboard()
-            }
-            }
-            .padding(.top, 5)
-            .background(Color(UIColor.secondarySystemBackground))
-            .frame(width: geometry.size.width)
-            .frame(minHeight: geometry.size.height)
+                .padding(.top, 5)
+                .background(Color(UIColor.secondarySystemBackground))
+                .frame(width: geometry.size.width)
+                .frame(minHeight: geometry.size.height)
             }
             
             // Loading HUD
@@ -82,9 +85,9 @@ struct LeagueView: View {
             self.isLoading = false
         }
         MflController.apiGetScoring(forLeague: self.activeLeague,
-                                           intoObject: self.scoringObj,
-                                           onSuccess: onSuccess,
-                                           onFailure: onFailure)
+                                    intoObject: self.scoringObj,
+                                    onSuccess: onSuccess,
+                                    onFailure: onFailure)
     }
     
     // Refreshing after first-time load does not display progress HUD over the screen
@@ -97,9 +100,9 @@ struct LeagueView: View {
         // Error completion
         let onFailure = {}
         MflController.apiGetScoring(forLeague: self.activeLeague,
-                                           intoObject: self.scoringObj,
-                                           onSuccess: onSuccess,
-                                           onFailure: onFailure)
+                                    intoObject: self.scoringObj,
+                                    onSuccess: onSuccess,
+                                    onFailure: onFailure)
     }
     
 }
