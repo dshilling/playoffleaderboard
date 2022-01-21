@@ -124,8 +124,7 @@ struct FranchiseTableCell: View {
             Image(systemName: "person.2.circle.fill")
                 .font(.title3)
                 .frame(minWidth: 16)
-            // TODO:
-            Text("18")
+            Text(String(format:"%d", franchise.playersRemaining))
                 .font(.body)
                 .frame(minWidth: 18)
             Divider()

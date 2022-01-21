@@ -39,10 +39,17 @@ class LeagueLeaderboard: ObservableObject {
             newTeam.name = teamDictionary[franchise.id] ?? ""
             newTeam.totalScore = Double(franchise.pf) ?? 0.0
             newTeam.liveScoring = liveScoringDictionary[franchise.id] ?? LiveScoringFranchise()
-            // Add live scoring totals if current live scoring week is after most recently completed week
+            // Add in live scoring totals only if current live scoring week is after most recently completed week
             if (scoringObj.mflStatus.weeks.CompletedWeek != scoringObj.mflStatus.weeks.LiveScoringWeek) {
-                let liveScores = liveScoringDictionary[franchise.id]
-                newTeam.totalScore += Double(liveScores?.score ?? "0") ?? 0.0
+                newTeam.totalScore += Double(newTeam.liveScoring.score) ?? 0.0
+            }
+            // Players remaining is anyone with game seconds remaining or any points in the current week live score
+            // TODO: FIXME: This doesn't work if players score zero or had a bye this week
+            newTeam.playersRemaining = 0
+            for player in newTeam.liveScoring.players.player {
+                if (Double(player.score) ?? 0 > 0 || Double(player.gameSecondsRemaining) ?? 0 > 0) {
+                    newTeam.playersRemaining += 1
+                }
             }
             franchises.append(newTeam)
         }
@@ -58,11 +65,13 @@ struct LeaderboardFranchise: Hashable {
     var name: String
     var totalScore: Double
     var liveScoring: LiveScoringFranchise
+    var playersRemaining: Int
     init() {
         id = ""
         name = ""
         totalScore = 0.0
         liveScoring = LiveScoringFranchise()
+        playersRemaining = 0
     }
     func hash(into hasher: inout Hasher) {
         hasher.combine(id + name + String(format: "%.2f",totalScore))
