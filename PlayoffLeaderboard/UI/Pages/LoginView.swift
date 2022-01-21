@@ -24,48 +24,48 @@ struct LoginView: View {
     var body: some View {
         ZStack(alignment: .center) {
             GeometryReader { geometry in
-            ScrollView {
-            VStack() {
-                HeadingText()
-                SubheadingText()
-                LogoImage()
-                UsernameField(username: $username)
-                PasswordField(password: $password)
-                if loginError {
-                    ErrorText()
-                } else {
-                    // Keeps view from resizing on error
-                    HiddenErrorText()
-                }
-                Button(action: {
-                    // We get an error when modifying below state variables while TextField editing is ongoing
-                    UIApplication.shared.endEditing()
-                    // Try login
-                    self.isLoading = true
-                    self.loginError = false
-                    // Success completion
-                    let onSuccess = { (leagues: Leagues) in
-                        self.isLoading = false
-                        self.myLeagues.leagues = leagues
-                        self.isLoggedIn = true
+                ScrollView {
+                    VStack() {
+                        HeadingText()
+                        SubheadingText()
+                        LogoImage()
+                        UsernameField(username: $username)
+                        PasswordField(password: $password)
+                        if loginError {
+                            ErrorText()
+                        } else {
+                            // Keeps view from resizing on error
+                            HiddenErrorText()
+                        }
+                        Button(action: {
+                            // We get an error when modifying below state variables while TextField editing is ongoing
+                            UIApplication.shared.endEditing()
+                            // Try login
+                            self.isLoading = true
+                            self.loginError = false
+                            // Success completion
+                            let onSuccess = { (leagues: Leagues) in
+                                self.isLoading = false
+                                self.myLeagues.leagues = leagues
+                                self.isLoggedIn = true
+                            }
+                            // Error completion
+                            let onFailure = {
+                                self.loginError = true
+                                self.isLoading = false
+                            }
+                            MflController.apiTryLogin(username: username, password: password,
+                                                      onSuccess: onSuccess, onFailure: onFailure)
+                        }) {
+                            LoginButtonText()
+                        }
                     }
-                    // Error completion
-                    let onFailure = {
-                        self.loginError = true
-                        self.isLoading = false
-                    }
-                    MflController.apiTryLogin(username: username, password: password,
-                                              onSuccess: onSuccess, onFailure: onFailure)
-                }) {
-                    LoginButtonText()
+                    .padding()
+                    .frame(width: geometry.size.width)
+                    .frame(minHeight: geometry.size.height)
+                    .disabled(self.isLoading)
+                    .blur(radius: self.isLoading ? 2 : 0)
                 }
-            }
-            .padding()
-            .frame(width: geometry.size.width)
-            .frame(minHeight: geometry.size.height)
-            .disabled(self.isLoading)
-            .blur(radius: self.isLoading ? 2 : 0)
-            }
             }
             
             // Loading HUD

@@ -24,15 +24,18 @@ struct LeagueView: View {
     
     var body: some View {
         ZStack(alignment: .center) {
+            GeometryReader { geometry in
+            VStack {
             List {
                 Section {
                     if leagueLeaderboard.franchises.count > 0 {
                         ForEach(0 ..< leagueLeaderboard.franchises.count) { index in
-                            let franchise = leagueLeaderboard.franchises[index]
-                            let franchiseLabel = franchise.name + ", " + String(format: "%.2f", franchise.totalScore)
-                            Label(franchiseLabel, systemImage: "\(index+1).circle.fill" )
-                                .font(.title3)
+                            FranchiseTableCell(rank:index, franchise: leagueLeaderboard.franchises[index])
                         }
+                    }
+                    else
+                    {
+                        Text("") // Placeholder
                     }
                 } header: {
                     Text("Leaderboard")
@@ -45,6 +48,12 @@ struct LeagueView: View {
             // Refresh action when pulling list
             .refreshable {
                 self.refreshLeaderboard()
+            }
+            }
+            .padding(.top, 5)
+            .background(Color(UIColor.secondarySystemBackground))
+            .frame(width: geometry.size.width)
+            .frame(minHeight: geometry.size.height)
             }
             
             // Loading HUD
@@ -91,6 +100,39 @@ struct LeagueView: View {
                                            intoObject: self.scoringObj,
                                            onSuccess: onSuccess,
                                            onFailure: onFailure)
+    }
+    
+}
+
+struct FranchiseTableCell: View {
+    
+    var rank: Int
+    var franchise: LeaderboardFranchise
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: nil) {
+            // Rank
+            Image(systemName: "\(rank+1).circle.fill")
+                .font(.title3)
+                .frame(minWidth: 16)
+            Text(String(format: "%.1f", franchise.totalScore))
+                .font(.body)
+                .fontWeight(.semibold)
+                .frame(minWidth: 60)
+            Divider()
+            // Players Remaining
+            Image(systemName: "person.2.circle.fill")
+                .font(.title3)
+                .frame(minWidth: 16)
+            // TODO:
+            Text("18")
+                .font(.body)
+                .frame(minWidth: 18)
+            Divider()
+            // Name
+            Text(franchise.name.prefix(18))
+                .font(.body)
+        }
     }
     
 }

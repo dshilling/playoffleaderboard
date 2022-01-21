@@ -27,6 +27,10 @@ struct LeaguesView: View {
                         }
                     }
                 }
+                else
+                {
+                    Text("") // Placeholder
+                }
             } header: {
                 Text("My Leagues")
             }
@@ -65,6 +69,7 @@ struct LeagueTableCell: View {
         HStack(alignment: .center, spacing: nil) {
             Image(systemName: "person.2.circle.fill")
             Text(league.name)
+                .font(.title3)
         }
     }
     
