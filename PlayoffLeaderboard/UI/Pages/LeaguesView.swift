@@ -19,9 +19,9 @@ struct LeaguesView: View {
     var body: some View {
         List {
             Section {
-                if myLeagues.leagues.count > 0 {
-                    ForEach(0 ..< myLeagues.leagues.count) { index in
-                        let league = myLeagues.leagues[index]
+                if myLeagues.leagues.league.count > 0 {
+                    ForEach(0 ..< myLeagues.leagues.league.count) { index in
+                        let league = myLeagues.leagues.league[index]
                         NavigationLink(destination: LeagueView(withLeague: league)) {
                             LeagueTableCell(league: league)
                         }

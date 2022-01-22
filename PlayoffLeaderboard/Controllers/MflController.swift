@@ -79,8 +79,8 @@ class MflController {
                 do {
                     let leaguesObj = try decoder.decode(LeaguesObj.self, from: data)
                     var myLeagues = Leagues()
-                    myLeagues = leaguesObj.leagues.league
-                    print("Leagues: Successfully fetched", myLeagues.count, "leagues for user")
+                    myLeagues = leaguesObj.leagues
+                    print("Leagues: Successfully fetched", myLeagues.league.count, "leagues for user")
                     DispatchQueue.main.async {
                         onSuccess(myLeagues)
                     }
