@@ -28,10 +28,25 @@ struct LeaguesObj: Codable {
 }
 
 struct Leagues: Codable {
+    
     var league: [League]
+    
     init() {
         league = [League]()
     }
+    
+    // Override Decoder method to handle cases where "league" is an object or a list
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        do {
+            self.league = try values.decode([League].self, forKey: .league)
+        } catch {
+            let tempLeague: League = try values.decode(League.self, forKey: .league)
+            self.league = [League]()
+            self.league.append(tempLeague)
+        }
+    }
+    
 }
 
 struct League: Codable {
