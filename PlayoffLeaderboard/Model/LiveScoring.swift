@@ -49,9 +49,27 @@ struct LiveScoringFranchise: Codable, Hashable {
 
 struct LiveScoringPlayers: Codable {
     var player: [LiveScoringPlayer]
+    
     init() {
         player = [LiveScoringPlayer]()
     }
+    
+    // Override Decoder method to handle cases where "league" is an object or a list
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        do {
+            self.player = try values.decode([LiveScoringPlayer].self, forKey: .player)
+        } catch {
+            do {
+                self.player = [LiveScoringPlayer]()
+                let tempPlayer: LiveScoringPlayer = try values.decode(LiveScoringPlayer.self, forKey: .player)
+                self.player.append(tempPlayer)
+            } catch {
+                print("No players found for franchise. Leave live scoring as empty list.")
+            }
+        }
+    }
+    
 }
 
 struct LiveScoringPlayer: Codable {
