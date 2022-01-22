@@ -53,13 +53,13 @@ struct League: Codable {
     var franchiseId: String
     var url: String
     var name: String
-    var franchiseName: String
+    //var franchiseName: String
     var leagueId: String
     init() {
         franchiseId = ""
         url = ""
         name = ""
-        franchiseName = ""
+        //franchiseName = "" commissioners without a linked team will not have this field in response
         leagueId = ""
     }
 }
