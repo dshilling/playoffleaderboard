@@ -78,6 +78,7 @@
 		93B2CDB3279A737800B864EA /* players.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = players.json; path = ../../../../Downloads/players.json; sourceTree = "<group>"; };
 		93B2CDB5279A765600B864EA /* FranchiseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FranchiseView.swift; sourceTree = "<group>"; };
 		93B2CDB7279A776100B864EA /* FranchiseLeaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FranchiseLeaderboard.swift; sourceTree = "<group>"; };
+		93B2CDB9279BB12700B864EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +129,7 @@
 		93652402279501D500380BE4 /* PlayoffLeaderboard */ = {
 			isa = PBXGroup;
 			children = (
+				93B2CDB9279BB12700B864EA /* Info.plist */,
 				93B2CDB2279A736000B864EA /* Resources */,
 				936524312796738900380BE4 /* Model */,
 				93652407279501D700380BE4 /* Assets.xcassets */,
@@ -554,6 +556,7 @@
 				DEVELOPMENT_TEAM = 69C6NS9PP5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PlayoffLeaderboard/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -584,6 +587,7 @@
 				DEVELOPMENT_TEAM = 69C6NS9PP5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PlayoffLeaderboard/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
