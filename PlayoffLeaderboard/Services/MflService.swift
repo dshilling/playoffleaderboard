@@ -19,7 +19,9 @@ class MflService {
                    completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
         // Request
         let url = URL(string: baseUrl + "login")!
-        let paramData : Data = "USERNAME=\(username)&PASSWORD=\(password)&XML=1".data(using: .utf8)!
+        var paramString: String = "USERNAME=\(username)&PASSWORD=\(password)&XML=1"
+        paramString = paramString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let paramData : Data = paramString.data(using: .utf8)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = paramData
