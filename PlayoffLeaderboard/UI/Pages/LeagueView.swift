@@ -20,6 +20,10 @@ struct LeagueView: View {
     
     init(withLeague: League) {
         self.activeLeague = withLeague
+        UINavigationBar.appearance().largeTitleTextAttributes
+            = [.foregroundColor: UIColor(named: "AppNavy") ?? .black]
+        UINavigationBar.appearance().titleTextAttributes
+            = [.foregroundColor: UIColor(named: "AppNavy") ?? .black]
     }
     
     var body: some View {
@@ -54,7 +58,7 @@ struct LeagueView: View {
                     }
                 }
                 .padding(.top, 5)
-                .background(Color(UIColor.secondarySystemBackground))
+                .background(Color(UIColor.secondarySystemBackground)) // also works in dark theme
                 .frame(width: geometry.size.width)
                 .frame(minHeight: geometry.size.height)
             }

@@ -23,6 +23,10 @@ struct FranchiseView: View {
     init(withTeam: String, forFranchise: LiveScoringFranchise) {
         self.teamName = withTeam
         self.tempFranchise = forFranchise
+        UINavigationBar.appearance().largeTitleTextAttributes
+            = [.foregroundColor: UIColor(named: "AppNavy") ?? .black]
+        UINavigationBar.appearance().titleTextAttributes
+            = [.foregroundColor: UIColor(named: "AppNavy") ?? .black]
     }
     
     var body: some View {
@@ -53,7 +57,7 @@ struct FranchiseView: View {
                     //.refreshable {}
                 }
                 .padding(.top, 5)
-                .background(Color(UIColor.secondarySystemBackground))
+                .background(Color(UIColor.secondarySystemBackground)) // also works in dark theme
                 .frame(width: geometry.size.width)
                 .frame(minHeight: geometry.size.height)
             }

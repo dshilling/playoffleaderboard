@@ -169,7 +169,7 @@ struct LoginButtonText: View {
     var body: some View {
         Text("LOGIN")
             .font(.headline)
-            .foregroundColor(.white)
+            .foregroundColor(Color("AppWhite"))
             .padding()
             .frame(width: 220, height: 60)
             .background(Color("AccentColor"))

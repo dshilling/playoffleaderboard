@@ -9,20 +9,24 @@ import SwiftUI
 
 struct LoadingDialogView: View {
     var body: some View {
-        Rectangle()
-            .fill(Color.black)
-            .opacity(0.6)
-            .edgesIgnoringSafeArea(.all)
+        // This rectangle darkens the screen behind during loading.
+        // For now, I decided I don't like the way this effect looks
+        //Rectangle()
+        //    .fill(Color.black) // Should convert to an Asset color
+        //    .opacity(0.6)
+        //    .edgesIgnoringSafeArea(.all)
         VStack(spacing: 48) {
             ProgressView()
                 .scaleEffect(2.0, anchor: .center)
+                .foregroundColor(Color("AppNavy"))
             Text("Loading")
                 .font(.title)
+                .foregroundColor(Color("AppNavy"))
                 .fontWeight(.semibold)
         }
         .frame(width: 250, height: 200)
-        .background(Color.white)
-        .foregroundColor(Color.primary)
+        .background(Color("AppGray"))
+        .foregroundColor(Color("AppNavy"))
         .cornerRadius(16)
     }
 }

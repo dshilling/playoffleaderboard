@@ -15,7 +15,14 @@ struct LeaguesView: View {
     
     // Needed for custom back button
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-        
+    
+    init () {
+        UINavigationBar.appearance().largeTitleTextAttributes
+            = [.foregroundColor: UIColor(named: "AppNavy") ?? .black]
+        UINavigationBar.appearance().titleTextAttributes
+            = [.foregroundColor: UIColor(named: "AppNavy") ?? .black]
+    }
+    
     var body: some View {
         List {
             Section {
