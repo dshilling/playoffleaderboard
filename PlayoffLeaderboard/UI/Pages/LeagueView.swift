@@ -118,25 +118,30 @@ struct FranchiseTableCell: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: nil) {
-            // Rank
+            // Total Score
             Image(systemName: "\(rank+1).circle.fill")
-                .font(.title3)
-                .frame(minWidth: 16)
+                .font(.body)
+                .frame(minWidth: 12)
             Text(String(format: "%.1f", franchise.totalScore))
                 .font(.body)
                 .fontWeight(.semibold)
-                .frame(minWidth: 60)
+                .frame(minWidth: 45)
+            Text(String(format: "%.1f", Double(franchise.liveScoring.score) ?? 0.0))
+                .font(.body)
+                .fontWeight(.semibold)
+                .foregroundColor(Color("AccentColor"))
+                .frame(minWidth: 40)
             Divider()
             // Players Remaining
             Image(systemName: "person.2.circle.fill")
-                .font(.title3)
-                .frame(minWidth: 16)
+                .font(.body)
+                .frame(minWidth: 12)
             Text(String(format:"%d", franchise.playersRemaining))
                 .font(.body)
-                .frame(minWidth: 18)
+                .frame(minWidth: 12)
             Divider()
             // Name
-            Text(franchise.name.prefix(18))
+            Text(franchise.name.prefix(16))
                 .font(.body)
         }
     }
