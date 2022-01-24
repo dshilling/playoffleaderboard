@@ -31,6 +31,8 @@
 		93B2CDB4279A737800B864EA /* players.json in Resources */ = {isa = PBXBuildFile; fileRef = 93B2CDB3279A737800B864EA /* players.json */; };
 		93B2CDB6279A765600B864EA /* FranchiseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDB5279A765600B864EA /* FranchiseView.swift */; };
 		93B2CDB8279A776100B864EA /* FranchiseLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDB7279A776100B864EA /* FranchiseLeaderboard.swift */; };
+		93B2CDBB279E5A9300B864EA /* NflSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDBA279E5A9300B864EA /* NflSchedule.swift */; };
+		93B2CDBD279E5E7900B864EA /* FantasyMatchup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDBC279E5E7900B864EA /* FantasyMatchup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,8 @@
 		93B2CDB5279A765600B864EA /* FranchiseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FranchiseView.swift; sourceTree = "<group>"; };
 		93B2CDB7279A776100B864EA /* FranchiseLeaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FranchiseLeaderboard.swift; sourceTree = "<group>"; };
 		93B2CDB9279BB12700B864EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		93B2CDBA279E5A9300B864EA /* NflSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NflSchedule.swift; sourceTree = "<group>"; };
+		93B2CDBC279E5E7900B864EA /* FantasyMatchup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FantasyMatchup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,8 @@
 			isa = PBXGroup;
 			children = (
 				93B2CDA827991FA700B864EA /* MflStatus.swift */,
+				93B2CDBA279E5A9300B864EA /* NflSchedule.swift */,
+				93B2CDBC279E5E7900B864EA /* FantasyMatchup.swift */,
 				936524322796739E00380BE4 /* League.swift */,
 				936524422798E33400380BE4 /* LeagueDetails.swift */,
 				936524442798F38800380BE4 /* LeagueStandings.swift */,
@@ -386,6 +392,7 @@
 				9365243A2796857900380BE4 /* LeaguesView.swift in Sources */,
 				93B2CDB1279A691B00B864EA /* Players.swift in Sources */,
 				936524332796739E00380BE4 /* League.swift in Sources */,
+				93B2CDBB279E5A9300B864EA /* NflSchedule.swift in Sources */,
 				93B2CDAF27992A2000B864EA /* LeagueLeaderboard.swift in Sources */,
 				93B2CDB6279A765600B864EA /* FranchiseView.swift in Sources */,
 				936524432798E33400380BE4 /* LeagueDetails.swift in Sources */,
@@ -393,6 +400,7 @@
 				93B2CDA927991FA700B864EA /* MflStatus.swift in Sources */,
 				936524452798F38800380BE4 /* LeagueStandings.swift in Sources */,
 				93652404279501D500380BE4 /* PlayoffLeaderboardApp.swift in Sources */,
+				93B2CDBD279E5E7900B864EA /* FantasyMatchup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -95,8 +95,11 @@ struct PlayerScoringTableCell: View {
                 .frame(minWidth: 60)
             Divider()
             // Player
-            Text(player.name + " (" + player.team + ")")
-                .font(.body)
+            VStack(alignment: .leading, spacing: nil) {
+                Text(player.name + " (" + player.team + ")")
+                    .font(.body)
+                Text(player.matchup).font(.caption)
+            }
         }
     }
     

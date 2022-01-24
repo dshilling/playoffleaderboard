@@ -41,6 +41,18 @@ class MflService {
         task.resume()
     }
     
+    // GET NFL Schedule
+    // https://api.myfantasyleague.com/fflnetdynamic2020/nfl_sched_19.json
+    static func getNflSchedule(week: String,
+                               completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        let urlStr = "https://api.myfantasyleague.com/fflnetdynamic2021/nfl_sched_" + week + ".json"
+        let url = URL(string: urlStr)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request, completionHandler: completion)
+        task.resume()
+    }
+    
     // EXPORT myleagues
     // https://api.myfantasyleague.com/2021/api_info?STATE=test&CCAT=export&TYPE=myleagues
     static func exportMyLeagues(completion: @escaping (Data?, URLResponse?, Error?) -> Void) {

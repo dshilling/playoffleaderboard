@@ -120,7 +120,7 @@ class MflController {
                 intoObject.mflStatus = decodedData.mflStatus
                 print("API Status: Successfully fetched API status")
                 // Continue to next request
-                apiGetScoringLeague(forLeague: forLeague, intoObject: intoObject, onSuccess: onSuccess, onFailure: onFailure)
+                apiGetScoringSchedule(forLeague: forLeague, intoObject: intoObject, onSuccess: onSuccess, onFailure: onFailure)
             } catch {
                 print("API Status: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
                 DispatchQueue.main.async {
@@ -138,12 +138,55 @@ class MflController {
         return forLeague.url.components(separatedBy: "home")[0]
     }
     
+    // Continue scoring request by fetching NFL schedule data
+    static func apiGetScoringSchedule(forLeague: League,
+                                      intoObject: LeagueScoringObj,
+                                      onSuccess: @escaping () -> Void,
+                                      onFailure: @escaping () -> Void) {
+        MflService.getNflSchedule(week: intoObject.mflStatus.weeks.CurrentWeek)
+        {data, response, error in
+            // Check for errors
+            guard let data = data,
+                  let response = response,
+                  error == nil,
+                  (response as! HTTPURLResponse).statusCode == 200 else {
+                      print("API Schedule: error response from the server")
+                      DispatchQueue.main.async {
+                          onFailure()
+                      }
+                      return
+            }
+            // Handle success
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            do {
+                let decodedData = try decoder.decode(NflScheduleResponse.self, from: data)
+                intoObject.nflSchedules = [:]
+                for matchup in decodedData.nflSchedule.matchup {
+                    for team in matchup.team {
+                        intoObject.nflSchedules[team.id] =
+                                FantasyMatchup(fromMatchup: matchup, forTeam: team.id)
+                    }
+                }
+                print("API Schedule: Successfully fetched NFL Schedule for week",
+                        intoObject.mflStatus.weeks.CurrentWeek)
+                // Continue to next request
+                apiGetScoringLeague(forLeague: forLeague, intoObject: intoObject,
+                                    onSuccess: onSuccess, onFailure: onFailure)
+            } catch {
+                print("API Schedule: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
+                DispatchQueue.main.async {
+                    onFailure()
+                }
+            }
+        }
+    }
+    
     // Continue scoring request by fetching league next
     static func apiGetScoringLeague(forLeague: League,
                                     intoObject: LeagueScoringObj,
                                     onSuccess: @escaping () -> Void,
                                     onFailure: @escaping () -> Void) {
-        // Begin by fetching league details
         MflService.exportLeague(leagueBaseUrl: getBaseUrl(forLeague: forLeague), leagueId: forLeague.leagueId)
         {data, response, error in
             // Check for errors
@@ -165,7 +208,8 @@ class MflController {
                 intoObject.leagueDetails = decodedData.league
                 print("League: Successfully fetched league details for league", decodedData.league.id)
                 // Continue to next request
-                apiGetScoringStandings(forLeague: forLeague, intoObject: intoObject, onSuccess: onSuccess, onFailure: onFailure)
+                apiGetScoringStandings(forLeague: forLeague, intoObject: intoObject,
+                                       onSuccess: onSuccess, onFailure: onFailure)
             } catch {
                 print("League: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
                 DispatchQueue.main.async {
@@ -202,7 +246,8 @@ class MflController {
                 intoObject.leagueStandings = decodedData.leagueStandings
                 print("League Standings: Successfully fetched standings for", decodedData.leagueStandings.franchise.count, "franchises")
                 // Continue to next request
-                apiGetScoringLive(forLeague: forLeague, intoObject: intoObject, onSuccess: onSuccess, onFailure: onFailure)
+                apiGetScoringLive(forLeague: forLeague, intoObject: intoObject,
+                                  onSuccess: onSuccess, onFailure: onFailure)
             } catch {
                 print("League Standings: JSON deserialization failed:", String(decoding: data, as: UTF8.self))
                 DispatchQueue.main.async {

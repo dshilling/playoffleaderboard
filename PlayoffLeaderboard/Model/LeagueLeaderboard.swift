@@ -43,14 +43,7 @@ class LeagueLeaderboard: ObservableObject {
             if (scoringObj.mflStatus.weeks.CompletedWeek != scoringObj.mflStatus.weeks.LiveScoringWeek) {
                 newTeam.totalScore += Double(newTeam.liveScoring.score) ?? 0.0
             }
-            // Players remaining is anyone with game seconds remaining or any points in the current week live score
-            // TODO: FIXME: This doesn't work if players score zero or had a bye this week
-            newTeam.playersRemaining = 0
-            for player in newTeam.liveScoring.players.player {
-                if (Double(player.score) ?? 0 > 0 || Double(player.gameSecondsRemaining) ?? 0 > 0) {
-                    newTeam.playersRemaining += 1
-                }
-            }
+            
             // Also fill in player data optional fields
             if newTeam.liveScoring.players.player.count > 0 {
                 for index in 0...newTeam.liveScoring.players.player.count-1 {
@@ -58,8 +51,19 @@ class LeagueLeaderboard: ObservableObject {
                     newTeam.liveScoring.players.player[index].name = playerData.name
                     newTeam.liveScoring.players.player[index].team = playerData.team
                     newTeam.liveScoring.players.player[index].position = playerData.position
+                    newTeam.liveScoring.players.player[index].matchup =
+                        (scoringObj.nflSchedules[newTeam.liveScoring.players.player[index].team] ?? FantasyMatchup()).formattedMatchup()
                 }
             }
+            
+            // Count all players in first week (byes). Otherwise count players in matchups.
+            newTeam.playersRemaining = 0
+            for player in newTeam.liveScoring.players.player {
+                if ((scoringObj.mflStatus.weeks.CurrentWeek == "19") || player.matchup != "IDLE") {
+                    newTeam.playersRemaining += 1
+                }
+            }
+            
             franchises.append(newTeam)
         }
         

@@ -13,9 +13,12 @@ class LeagueScoringObj {
     // MFL status containing current year and week data
     var mflStatus: MflStatus
     
-    // Latest players array from MFL
-    var mflPlayers: [String:Player]
+    // Latest nfl schedule from NFL indexed by team id
+    var nflSchedules: [String:FantasyMatchup]
     
+    // Latest players array from MFL index by player id
+    var mflPlayers: [String:Player]
+        
     // Selected league details obj
     var leagueDetails: LeagueDetails
     
@@ -27,6 +30,7 @@ class LeagueScoringObj {
     
     init() {
         mflStatus = MflStatus()
+        nflSchedules = [:]
         mflPlayers = [:]
         leagueDetails = LeagueDetails()
         leagueStandings = LeagueStandings()

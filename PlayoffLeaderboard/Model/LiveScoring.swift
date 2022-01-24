@@ -82,6 +82,7 @@ struct LiveScoringPlayer: Codable {
     var name: String                        // From /players API, added later
     var position: String                    // From /players API, added later
     var team: String                        // From /players API, added later
+    var matchup: String                     // From /nflSchedules API, added later
     
     init() {
         id = ""
@@ -92,9 +93,10 @@ struct LiveScoringPlayer: Codable {
         name = ""
         position = ""
         team = ""
+        matchup = ""
     }
     
-    // Override Decoder method to supply 3 optional values
+    // Override Decoder method to supply 4 optional values
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try values.decode(String.self, forKey: .id)
@@ -102,8 +104,9 @@ struct LiveScoringPlayer: Codable {
         self.status = try values.decode(String.self, forKey: .status)
         self.updatedStats = try values.decode(String.self, forKey: .updatedStats)
         self.gameSecondsRemaining = try values.decode(String.self, forKey: .gameSecondsRemaining)
-        name = ""
-        position = ""
-        team = ""
+        name = ""     // added later
+        position = "" // added later
+        team = ""     // added later
+        matchup = ""  // added later
     }
 }
