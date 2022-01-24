@@ -12,17 +12,21 @@ struct FranchiseView: View {
     
     // Active Team
     var teamName: String
+    var activeLeague: League
         
     // Only used temporarily for initializing the view
     var tempFranchise:LiveScoringFranchise
+    var tempScoringObj:LeagueScoringObj
     
     // State variables
     @State private var isLoading: Bool = false
     @StateObject var franchiseLeaderboard = FranchiseLeaderboard()
     
-    init(withTeam: String, forFranchise: LiveScoringFranchise) {
+    init(withTeam: String, forFranchise: LiveScoringFranchise, inLeague: League) {
         self.teamName = withTeam
         self.tempFranchise = forFranchise
+        self.tempScoringObj = LeagueScoringObj()
+        self.activeLeague = inLeague
         UINavigationBar.appearance().largeTitleTextAttributes
             = [.foregroundColor: UIColor(named: "AppNavy") ?? .black]
         UINavigationBar.appearance().titleTextAttributes
@@ -53,8 +57,25 @@ struct FranchiseView: View {
                     .foregroundColor(Color("AppNavy"))
                     .disabled(isLoading)
                     .blur(radius: isLoading ? 2 : 0)
-                    // TODO: Pull down refresh not yet supported
-                    //.refreshable {}
+                    .refreshable {
+                        // Success completion
+                        let onSuccess = {
+                            // scoringObj passed by reference and updated
+                            let tempLeaderboard = LeagueLeaderboard()
+                            tempLeaderboard.franchises = LeagueLeaderboard(scoringObj: self.tempScoringObj).franchises
+                            for franchise in tempLeaderboard.franchises {
+                                if franchise.name == self.teamName {
+                                    franchiseLeaderboard.franchise = franchise.liveScoring
+                                }
+                            }
+                        }
+                        // Error completion
+                        let onFailure = {}
+                        MflController.apiGetScoring(forLeague: self.activeLeague,
+                                                    intoObject: self.tempScoringObj,
+                                                    onSuccess: onSuccess,
+                                                    onFailure: onFailure)
+                    }
                 }
                 .padding(.top, 5)
                 .background(Color(UIColor.secondarySystemBackground)) // also works in dark theme

@@ -35,7 +35,8 @@ struct LeagueView: View {
                             if leagueLeaderboard.franchises.count > 0 {
                                 ForEach(0 ..< leagueLeaderboard.franchises.count) { index in
                                     NavigationLink(destination: FranchiseView(withTeam: leagueLeaderboard.franchises[index].name,
-                                                                    forFranchise: leagueLeaderboard.franchises[index].liveScoring)) {
+                                                                    forFranchise: leagueLeaderboard.franchises[index].liveScoring,
+                                                                    inLeague: activeLeague)) {
                                         FranchiseTableCell(rank:index, franchise: leagueLeaderboard.franchises[index])
                                     }
                                 }

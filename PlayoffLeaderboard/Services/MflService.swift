@@ -10,6 +10,7 @@ import Foundation
 class MflService {
         
     // Configuration Constants
+    // TODO: "2021" is hard coded in many places in this app. Need a better way to handle this.
     static let baseUrl = "https://api.myfantasyleague.com/2021/"
     
     // POST /login

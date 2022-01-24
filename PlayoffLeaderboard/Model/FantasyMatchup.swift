@@ -45,7 +45,7 @@ struct FantasyMatchup {
             }
             str += self.opponent.id
             if (self.minutesRemaining > 0) {
-                str += " (" + String(self.minutesRemaining) + "min)"
+                str += " (" + String(self.minutesRemaining) + " mins)"
             } else {
                 str += " (FINAL)"
             }
