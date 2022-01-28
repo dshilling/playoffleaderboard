@@ -120,9 +120,16 @@ struct FranchiseTableCell: View {
     var body: some View {
         HStack(alignment: .center, spacing: nil) {
             // Total Score
-            Image(systemName: "\(rank+1).circle.fill")
-                .font(.body)
-                .frame(minWidth: 12)
+            if (franchise.isWeeklyTopscore) {
+                Image(systemName: "flame.circle.fill")
+                    .font(.body)
+                    .frame(minWidth: 12)
+                    .foregroundColor(Color("AccentColor"))
+            } else {
+                Image(systemName: "\(rank+1).circle.fill")
+                    .font(.body)
+                    .frame(minWidth: 12)
+            }
             Text(String(format: "%.1f", franchise.totalScore))
                 .font(.body)
                 .fontWeight(.semibold)

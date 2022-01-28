@@ -67,7 +67,19 @@ class LeagueLeaderboard: ObservableObject {
             franchises.append(newTeam)
         }
         
-        // Sort the array in descending order by score
+        // First, sort by live scoring to set the weekly leader flag
+        if (franchises.count > 1) {
+            franchises = franchises.sorted(by: { Double($0.liveScoring.score) ?? 0 > Double($1.liveScoring.score) ?? 0} )
+            if (Double(franchises[0].liveScoring.score) ?? 0 > 0) {
+                for i in 0 ..< franchises.count {
+                    if (franchises[i].liveScoring.score == franchises[0].liveScoring.score) {
+                        franchises[i].isWeeklyTopscore = true
+                    }
+                }
+            }
+        }
+        
+        // Resort the array in descending order by total score for display
         franchises = franchises.sorted(by: { $0.totalScore > $1.totalScore } )
     }
     
@@ -79,12 +91,14 @@ struct LeaderboardFranchise: Hashable {
     var totalScore: Double
     var liveScoring: LiveScoringFranchise
     var playersRemaining: Int
+    var isWeeklyTopscore: Bool // Indicates top scoring team for current week
     init() {
         id = ""
         name = ""
         totalScore = 0.0
         liveScoring = LiveScoringFranchise()
         playersRemaining = 0
+        isWeeklyTopscore = false
     }
     func hash(into hasher: inout Hasher) {
         hasher.combine(id + name + String(format: "%.2f",totalScore))
