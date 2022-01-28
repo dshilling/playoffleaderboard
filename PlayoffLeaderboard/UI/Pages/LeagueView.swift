@@ -131,7 +131,7 @@ struct FranchiseTableCell: View {
                 .font(.body)
                 .fontWeight(.semibold)
                 .foregroundColor(Color("AccentColor"))
-                .frame(minWidth: 40)
+                .frame(minWidth: 45)
             Divider()
             // Players Remaining
             Image(systemName: "person.2.circle.fill")
