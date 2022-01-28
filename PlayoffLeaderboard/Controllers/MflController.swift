@@ -318,7 +318,7 @@ class MflController {
                 dict[player.id] = player
             }
             intoObject.mflPlayers = dict
-            print("Players: Successfully fetched ", dict.count, "players")
+            print("Players: Successfully fetched", dict.count, "players")
             DispatchQueue.main.async {
                 onSuccess()
             }
