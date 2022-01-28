@@ -143,7 +143,7 @@ class MflController {
                                       intoObject: LeagueScoringObj,
                                       onSuccess: @escaping () -> Void,
                                       onFailure: @escaping () -> Void) {
-        MflService.getNflSchedule(week: intoObject.mflStatus.weeks.CurrentWeek)
+        MflService.getNflSchedule(week: intoObject.mflStatus.weeks.LiveScoringWeek)
         {data, response, error in
             // Check for errors
             guard let data = data,
