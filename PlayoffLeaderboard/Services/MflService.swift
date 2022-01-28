@@ -10,8 +10,7 @@ import Foundation
 class MflService {
         
     // Configuration Constants
-    // TODO: "2021" is hard coded in many places in this app. Need a better way to handle this.
-    static let baseUrl = "https://api.myfantasyleague.com/2021/"
+    static let baseUrl = "https://api.myfantasyleague.com/" + getLeagueYear() + "/"
     
     // POST /login
     // https://api.myfantasyleague.com/2021/api_info?STATE=test&CCAT=misc&TYPE=login
@@ -35,7 +34,7 @@ class MflService {
     // GET MFL Status
     // https://api.myfantasyleague.com/fflnetdynamic2021/mfl_status.json
     static func getMflStatus(completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        let url = URL(string: "https://api.myfantasyleague.com/fflnetdynamic2021/mfl_status.json")!
+        let url = URL(string: "https://api.myfantasyleague.com/fflnetdynamic" + getLeagueYear() + "/mfl_status.json")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         let task = URLSession.shared.dataTask(with: request, completionHandler: completion)
@@ -46,7 +45,7 @@ class MflService {
     // https://api.myfantasyleague.com/fflnetdynamic2020/nfl_sched_19.json
     static func getNflSchedule(week: String,
                                completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        let urlStr = "https://api.myfantasyleague.com/fflnetdynamic2021/nfl_sched_" + week + ".json"
+        let urlStr = "https://api.myfantasyleague.com/fflnetdynamic" + getLeagueYear() + "/nfl_sched_" + week + ".json"
         let url = URL(string: urlStr)!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -57,7 +56,7 @@ class MflService {
     // EXPORT myleagues
     // https://api.myfantasyleague.com/2021/api_info?STATE=test&CCAT=export&TYPE=myleagues
     static func exportMyLeagues(completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        let url = baseUrl + "export?TYPE=myleagues&YEAR=2021&FRANCHISE_NAMES=1&JSON=1"
+        let url = baseUrl + "export?TYPE=myleagues&YEAR=" + getLeagueYear() + "&FRANCHISE_NAMES=1&JSON=1"
         exportRequest(urlStr: url, completion: completion)
     }
     
@@ -80,6 +79,18 @@ class MflService {
     }
     
 // MARK: - Private methods
+    
+    static private func getLeagueYear() -> String {
+        let date = Date()
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: date)
+        let month = calendar.component(.month, from: date)
+        if (month < 3) { // Jan - March
+            return String(year - 1);
+        } else {
+            return String(year);
+        }
+    }
     
     static private func exportLeagueProperty(leagueBaseUrl: String, leagueId: String, leagueProperty: String,
                                              completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
