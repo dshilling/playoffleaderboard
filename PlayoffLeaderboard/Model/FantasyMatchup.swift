@@ -22,7 +22,7 @@ struct FantasyMatchup {
     
     init (fromMatchup: NflMatchup, forTeam: String) {
         self.init()
-        self.minutesRemaining = Int(fromMatchup.gameSecondsRemaining) ?? 0 / 60
+        self.minutesRemaining = (Int(fromMatchup.gameSecondsRemaining) ?? 0) / 60
         for team in fromMatchup.team {
             if (team.id == forTeam) {
                 self.team = team
