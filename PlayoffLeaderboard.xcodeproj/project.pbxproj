@@ -28,11 +28,12 @@
 		93B2CDAB279924C000B864EA /* LeagueScoringObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDAA279924C000B864EA /* LeagueScoringObj.swift */; };
 		93B2CDAF27992A2000B864EA /* LeagueLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDAE27992A2000B864EA /* LeagueLeaderboard.swift */; };
 		93B2CDB1279A691B00B864EA /* Players.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDB0279A691B00B864EA /* Players.swift */; };
-		93B2CDB4279A737800B864EA /* players.json in Resources */ = {isa = PBXBuildFile; fileRef = 93B2CDB3279A737800B864EA /* players.json */; };
+		93B2CDB4279A737800B864EA /* players-2021.json in Resources */ = {isa = PBXBuildFile; fileRef = 93B2CDB3279A737800B864EA /* players-2021.json */; };
 		93B2CDB6279A765600B864EA /* FranchiseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDB5279A765600B864EA /* FranchiseView.swift */; };
 		93B2CDB8279A776100B864EA /* FranchiseLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDB7279A776100B864EA /* FranchiseLeaderboard.swift */; };
 		93B2CDBB279E5A9300B864EA /* NflSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDBA279E5A9300B864EA /* NflSchedule.swift */; };
 		93B2CDBD279E5E7900B864EA /* FantasyMatchup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDBC279E5E7900B864EA /* FantasyMatchup.swift */; };
+		93BC04B729725790009153EB /* players-2022.json in Resources */ = {isa = PBXBuildFile; fileRef = 93BC04B629725790009153EB /* players-2022.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,12 +78,13 @@
 		93B2CDAA279924C000B864EA /* LeagueScoringObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueScoringObj.swift; sourceTree = "<group>"; };
 		93B2CDAE27992A2000B864EA /* LeagueLeaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueLeaderboard.swift; sourceTree = "<group>"; };
 		93B2CDB0279A691B00B864EA /* Players.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Players.swift; sourceTree = "<group>"; };
-		93B2CDB3279A737800B864EA /* players.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = players.json; path = ../../../../Downloads/players.json; sourceTree = "<group>"; };
+		93B2CDB3279A737800B864EA /* players-2021.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "players-2021.json"; path = "../../../../Downloads/players-2021.json"; sourceTree = "<group>"; };
 		93B2CDB5279A765600B864EA /* FranchiseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FranchiseView.swift; sourceTree = "<group>"; };
 		93B2CDB7279A776100B864EA /* FranchiseLeaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FranchiseLeaderboard.swift; sourceTree = "<group>"; };
 		93B2CDB9279BB12700B864EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		93B2CDBA279E5A9300B864EA /* NflSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NflSchedule.swift; sourceTree = "<group>"; };
 		93B2CDBC279E5E7900B864EA /* FantasyMatchup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FantasyMatchup.swift; sourceTree = "<group>"; };
+		93BC04B629725790009153EB /* players-2022.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "players-2022.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,7 +247,8 @@
 		93B2CDB2279A736000B864EA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				93B2CDB3279A737800B864EA /* players.json */,
+				93B2CDB3279A737800B864EA /* players-2021.json */,
+				93BC04B629725790009153EB /* players-2022.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -354,9 +357,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93BC04B729725790009153EB /* players-2022.json in Resources */,
 				9365240B279501D700380BE4 /* Preview Assets.xcassets in Resources */,
 				93652408279501D700380BE4 /* Assets.xcassets in Resources */,
-				93B2CDB4279A737800B864EA /* players.json in Resources */,
+				93B2CDB4279A737800B864EA /* players-2021.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,7 +563,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 2023.1;
 				DEVELOPMENT_ASSET_PATHS = "\"PlayoffLeaderboard/Preview Content\"";
 				DEVELOPMENT_TEAM = 69C6NS9PP5;
 				ENABLE_PREVIEWS = YES;
@@ -575,7 +579,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.davidandanita.PlayoffLeaderboard;
 				PRODUCT_NAME = Playoffs;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -590,7 +594,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 2023.1;
 				DEVELOPMENT_ASSET_PATHS = "\"PlayoffLeaderboard/Preview Content\"";
 				DEVELOPMENT_TEAM = 69C6NS9PP5;
 				ENABLE_PREVIEWS = YES;
@@ -606,7 +610,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.davidandanita.PlayoffLeaderboard;
 				PRODUCT_NAME = Playoffs;
 				SWIFT_EMIT_LOC_STRINGS = YES;

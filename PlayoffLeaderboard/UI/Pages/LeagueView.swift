@@ -33,7 +33,7 @@ struct LeagueView: View {
                     List {
                         Section {
                             if leagueLeaderboard.franchises.count > 0 {
-                                ForEach(0 ..< leagueLeaderboard.franchises.count) { index in
+                                ForEach(0 ..< leagueLeaderboard.franchises.count, id: \.self) { index in
                                     NavigationLink(destination: FranchiseView(withTeam: leagueLeaderboard.franchises[index].name,
                                                                     forFranchise: leagueLeaderboard.franchises[index].liveScoring,
                                                                     inLeague: activeLeague)) {

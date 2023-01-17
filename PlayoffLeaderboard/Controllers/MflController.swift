@@ -303,7 +303,7 @@ class MflController {
         // TODO: This won't work next year when new players join the league, use api instead:
         // export?TYPE=players&L=1234&JSON=1
         do {
-            guard let path = Bundle.main.path(forResource: "players", ofType: "json") else {
+            guard let path = Bundle.main.path(forResource: "players-2022", ofType: "json") else {
                 print("Players: error loading local json file")
                 DispatchQueue.main.async {
                     onFailure()
