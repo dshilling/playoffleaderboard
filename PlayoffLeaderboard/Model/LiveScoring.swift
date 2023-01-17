@@ -69,7 +69,6 @@ struct LiveScoringPlayers: Codable {
             }
         }
     }
-    
 }
 
 struct LiveScoringPlayer: Codable {

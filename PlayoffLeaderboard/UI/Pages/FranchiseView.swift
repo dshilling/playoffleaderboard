@@ -41,7 +41,7 @@ struct FranchiseView: View {
                         Section {
                             let myPlayers = franchiseLeaderboard.franchise.players.player
                             if myPlayers.count > 0 {
-                                ForEach(0 ..< myPlayers.count) { index in
+                                ForEach(0 ..< myPlayers.count, id: \.self) { index in
                                     PlayerScoringTableCell(player: myPlayers[index])
                                 }
                             }
@@ -104,7 +104,7 @@ struct PlayerScoringTableCell: View {
     var body: some View {
         HStack(alignment: .center, spacing: nil) {
             // Position
-            Text(player.position)
+            Text(player.position.uppercased())
                 .font(.body)
                 .foregroundColor(Color("AccentColor"))
                 .frame(minWidth: 25)

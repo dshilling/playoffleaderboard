@@ -56,6 +56,38 @@ class LeagueLeaderboard: ObservableObject {
                 }
             }
             
+            // Sort live scoring players by position
+            var sortedList = [LiveScoringPlayer]()
+            for p in newTeam.liveScoring.players.player {
+                if (p.position.caseInsensitiveCompare("QB") == .orderedSame) { sortedList.append(p) }
+            }
+            for p in newTeam.liveScoring.players.player {
+                if (p.position.caseInsensitiveCompare("RB") == .orderedSame) { sortedList.append(p) }
+            }
+            for p in newTeam.liveScoring.players.player {
+                if (p.position.caseInsensitiveCompare("WR") == .orderedSame) { sortedList.append(p) }
+            }
+            for p in newTeam.liveScoring.players.player {
+                if (p.position.caseInsensitiveCompare("TE") == .orderedSame) { sortedList.append(p) }
+            }
+            for p in newTeam.liveScoring.players.player {
+                if (p.position.caseInsensitiveCompare("DEF") == .orderedSame) { sortedList.append(p) }
+            }
+            for p in newTeam.liveScoring.players.player {
+                if (p.position.caseInsensitiveCompare("PK") == .orderedSame) { sortedList.append(p) }
+            }
+            for p in newTeam.liveScoring.players.player {
+                if (p.position.caseInsensitiveCompare("QB")  != .orderedSame &&
+                    p.position.caseInsensitiveCompare("RB")  != .orderedSame &&
+                    p.position.caseInsensitiveCompare("WR")  != .orderedSame &&
+                    p.position.caseInsensitiveCompare("TE")  != .orderedSame &&
+                    p.position.caseInsensitiveCompare("DEF") != .orderedSame &&
+                    p.position.caseInsensitiveCompare("PK")  != .orderedSame) {
+                    sortedList.append(p)
+                }
+            }
+            newTeam.liveScoring.players.player = sortedList
+            
             // Count all players in first week (byes). Otherwise count players in matchups.
             newTeam.playersRemaining = 0
             for player in newTeam.liveScoring.players.player {
