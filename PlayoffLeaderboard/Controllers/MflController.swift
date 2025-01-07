@@ -302,9 +302,9 @@ class MflController {
                                 onFailure: @escaping () -> Void) {
         // TODO: This won't work next year when new players join the league, use api instead:
         // export?TYPE=players&L=1234&JSON=1
-        // https://api.myfantasyleague.com/2023/api_info?STATE=test&CCAT=export&TYPE=players
+        // https://api.myfantasyleague.com/2024/api_info?STATE=test&CCAT=export&TYPE=players
         do {
-            guard let path = Bundle.main.path(forResource: "players-2023", ofType: "json") else {
+            guard let path = Bundle.main.path(forResource: "players-2024", ofType: "json") else {
                 print("Players: error loading local json file")
                 DispatchQueue.main.async {
                     onFailure()

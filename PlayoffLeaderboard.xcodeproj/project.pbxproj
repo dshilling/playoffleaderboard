@@ -34,6 +34,7 @@
 		93B2CDBB279E5A9300B864EA /* NflSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDBA279E5A9300B864EA /* NflSchedule.swift */; };
 		93B2CDBD279E5E7900B864EA /* FantasyMatchup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2CDBC279E5E7900B864EA /* FantasyMatchup.swift */; };
 		93BC04B729725790009153EB /* players-2022.json in Resources */ = {isa = PBXBuildFile; fileRef = 93BC04B629725790009153EB /* players-2022.json */; };
+		93F1ECA82D2CDF4A00352381 /* players-2024.json in Resources */ = {isa = PBXBuildFile; fileRef = 93F1ECA72D2CDF4A00352381 /* players-2024.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		93B2CDBA279E5A9300B864EA /* NflSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NflSchedule.swift; sourceTree = "<group>"; };
 		93B2CDBC279E5E7900B864EA /* FantasyMatchup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FantasyMatchup.swift; sourceTree = "<group>"; };
 		93BC04B629725790009153EB /* players-2022.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "players-2022.json"; sourceTree = "<group>"; };
+		93F1ECA72D2CDF4A00352381 /* players-2024.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "players-2024.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +249,7 @@
 		93B2CDB2279A736000B864EA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				93F1ECA72D2CDF4A00352381 /* players-2024.json */,
 				93A4CD712B52496D00D33679 /* players-2023.json */,
 				93BC04B629725790009153EB /* players-2022.json */,
 			);
@@ -361,6 +364,7 @@
 				93A4CD722B52496D00D33679 /* players-2023.json in Resources */,
 				9365240B279501D700380BE4 /* Preview Assets.xcassets in Resources */,
 				93652408279501D700380BE4 /* Assets.xcassets in Resources */,
+				93F1ECA82D2CDF4A00352381 /* players-2024.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
