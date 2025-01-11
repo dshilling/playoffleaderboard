@@ -50,7 +50,12 @@ class LeagueLeaderboard: ObservableObject {
                     let playerData = scoringObj.mflPlayers[newTeam.liveScoring.players.player[index].id] ?? Player()
                     newTeam.liveScoring.players.player[index].name = playerData.name
                     newTeam.liveScoring.players.player[index].team = playerData.team
-                    newTeam.liveScoring.players.player[index].position = playerData.position
+                    if playerData.position.uppercased() == "DEF" {
+                        // DEF - too long for display
+                        newTeam.liveScoring.players.player[index].position = "D"
+                    } else {
+                        newTeam.liveScoring.players.player[index].position = playerData.position
+                    }
                     newTeam.liveScoring.players.player[index].matchup =
                         (scoringObj.nflSchedules[newTeam.liveScoring.players.player[index].team] ?? FantasyMatchup()).formattedMatchup()
                 }
@@ -71,7 +76,12 @@ class LeagueLeaderboard: ObservableObject {
                 if (p.position.caseInsensitiveCompare("TE") == .orderedSame) { sortedList.append(p) }
             }
             for p in newTeam.liveScoring.players.player {
-                if (p.position.caseInsensitiveCompare("DEF") == .orderedSame) { sortedList.append(p) }
+                if (p.position.caseInsensitiveCompare("DEF") == .orderedSame) {
+                    sortedList.append(p) }
+            }
+            for p in newTeam.liveScoring.players.player {
+                if (p.position.caseInsensitiveCompare("D") == .orderedSame) {
+                    sortedList.append(p) }
             }
             for p in newTeam.liveScoring.players.player {
                 if (p.position.caseInsensitiveCompare("PK") == .orderedSame) { sortedList.append(p) }
@@ -82,6 +92,7 @@ class LeagueLeaderboard: ObservableObject {
                     p.position.caseInsensitiveCompare("WR")  != .orderedSame &&
                     p.position.caseInsensitiveCompare("TE")  != .orderedSame &&
                     p.position.caseInsensitiveCompare("DEF") != .orderedSame &&
+                    p.position.caseInsensitiveCompare("D") != .orderedSame &&
                     p.position.caseInsensitiveCompare("PK")  != .orderedSame) {
                     sortedList.append(p)
                 }
